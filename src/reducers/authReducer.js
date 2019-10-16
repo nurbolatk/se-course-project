@@ -1,16 +1,16 @@
-const initial = {
-  id: 0,
-  email: "noone@gmail.com"
-};
+import { SIGNIN, LOGOUT } from "../actions";
+
+const initial = {};
 
 const authReducer = (state = initial, action) => {
   switch (action.type) {
-    case "SIGNIN":
+    case SIGNIN:
       return {
         ...state,
-        id: 1,
-        email: "oleg@gmail.com"
+        ...action.data
       };
+    case LOGOUT:
+      return {};
     default:
       return state;
   }

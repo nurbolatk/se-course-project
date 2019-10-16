@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
+import { SIGNIN } from "../actions";
 
 class Signin extends React.Component {
   state = {
@@ -10,6 +11,7 @@ class Signin extends React.Component {
   };
   signIn = e => {
     e.preventDefault();
+    this.props.signIn({ id: 22, email: "aloha", roles: ["ADMIN"] });
   };
   handleChange = e => {
     const { target } = e;
@@ -88,4 +90,13 @@ class Signin extends React.Component {
   }
 }
 
-export default Signin;
+const mapDispathToProps = dispatch => {
+  return {
+    signIn: user => dispatch({ type: SIGNIN, data: user })
+  };
+};
+
+export default connect(
+  null,
+  mapDispathToProps
+)(Signin);
