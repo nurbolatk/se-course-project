@@ -1,17 +1,17 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
 import { connect } from "react-redux";
-import { LOGOUT } from "../actions";
+import { logOutAction } from "../actions/authActions";
 
 const Navbar = props => {
   return (
     <>
-      <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <Link class="navbar-brand" to="/">
+      <nav className="navbar navbar-expand-lg navbar-light bg-light">
+        <Link className="navbar-brand" to="/">
           Akatsuki
         </Link>
         <button
-          class="navbar-toggler"
+          className="navbar-toggler"
           type="button"
           data-toggle="collapse"
           data-target="#navbarSupportedContent"
@@ -19,33 +19,37 @@ const Navbar = props => {
           aria-expanded="false"
           aria-label="Toggle navigation"
         >
-          <span class="navbar-toggler-icon"></span>
+          <span className="navbar-toggler-icon"></span>
         </button>
 
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul class="navbar-nav w-100">
+        <div className="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul className="navbar-nav w-100 align-items-center">
             {props.auth.id ? (
               <>
-                <li class="nav-item ml-auto">
-                  <Link class="nav-link" to="/sign-in">
+                <li className="nav-item ml-auto">
+                  <Link className="nav-link" to="/sign-in">
                     {props.auth.email}
                   </Link>
                 </li>
-                <li class="nav-item ">
-                  <a class="nav-link" href="#" onClick={props.logOut}>
+                <li className="nav-item ">
+                  <button
+                    className="btn btn-link nav-link"
+                    href="#"
+                    onClick={() => props.logOut(props.history)}
+                  >
                     Log out
-                  </a>
+                  </button>
                 </li>
               </>
             ) : (
               <>
-                <li class="nav-item ml-auto">
-                  <Link class="nav-link" to="/sign-in">
+                <li className="nav-item ml-auto">
+                  <Link className="nav-link" to="/sign-in">
                     Sign in
                   </Link>
                 </li>
-                <li class="nav-item ">
-                  <Link class="nav-link" to="/sign-up">
+                <li className="nav-item ">
+                  <Link className="nav-link" to="/sign-up">
                     Sign up
                   </Link>
                 </li>
@@ -62,13 +66,9 @@ const mapStateToProps = state => {
   return { auth: state.auth };
 };
 
-const mapDispathToProps = dispatch => {
-  return {
-    logOut: () => dispatch({ type: LOGOUT })
-  };
-};
-
-export default connect(
-  mapStateToProps,
-  mapDispathToProps
-)(Navbar);
+export default withRouter(
+  connect(
+    mapStateToProps,
+    logOutAction
+  )(Navbar)
+);
