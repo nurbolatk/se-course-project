@@ -2,6 +2,7 @@ import React from "react";
 import { Link, withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import { signInAction } from "../actions/authActions";
+import Spinner from "./Spinner";
 
 class Signin extends React.Component {
   state = {
@@ -40,6 +41,7 @@ class Signin extends React.Component {
                   value={this.state.email}
                   onChange={this.handleChange}
                   disabled={isFetching}
+                  required
                 />
               </div>
               <div className="form-group">
@@ -76,7 +78,7 @@ class Signin extends React.Component {
                 className="btn btn-primary w-100"
                 disabled={isFetching}
               >
-                {isFetching ? "Please wait" : "Sign in"}
+                {isFetching ? <Spinner type="small" /> : "Sign in"}
               </button>
               <hr />
               <Link

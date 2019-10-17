@@ -5,7 +5,13 @@ export const signInAction = (userCredentials, history) => {
     dispatch({ type: REQUEST_SIGNIN });
     // make asyn call to server
     setTimeout(() => {
-      const data = { ...userCredentials, id: 1 };
+      const data = {
+        email: userCredentials.email,
+        firstName: "Oleg",
+        lastName: "Ivanov",
+        roles: ["ADMIN"],
+        id: 1
+      };
       dispatch({ type: SIGNIN, data: data });
       history.push("/");
     }, 600);

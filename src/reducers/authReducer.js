@@ -1,12 +1,8 @@
 import { SIGNIN, LOGOUT, REQUEST_SIGNIN } from "../actions";
 
 const initial = {
-  id: null,
-  email: "",
-  isFetching: false,
-  roles: [],
-  firstName: "",
-  lastName: ""
+  user: null,
+  isFetching: false
 };
 
 const authReducer = (state = initial, action) => {
@@ -20,7 +16,7 @@ const authReducer = (state = initial, action) => {
       console.log(action);
       return {
         ...state,
-        ...action.data,
+        user: action.data,
         isFetching: false
       };
     case LOGOUT:

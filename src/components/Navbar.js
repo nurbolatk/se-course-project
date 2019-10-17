@@ -4,6 +4,14 @@ import { connect } from "react-redux";
 import { logOutAction } from "../actions/authActions";
 
 const Navbar = props => {
+  const { user } = props.auth;
+  const adminLinks = user && user.roles.includes("ADMIN") && (
+    <li className="nav-item ml-auto">
+      <Link className="nav-link" to="/administration">
+        Admin panel
+      </Link>
+    </li>
+  );
   return (
     <>
       <nav className="navbar navbar-expand-lg navbar-light bg-light">
@@ -22,13 +30,17 @@ const Navbar = props => {
           <span className="navbar-toggler-icon"></span>
         </button>
 
-        <div className="collapse navbar-collapse" id="navbarSupportedContent">
+        <div
+          className="collapse navbar-collapse ml-auto"
+          id="navbarSupportedContent"
+        >
           <ul className="navbar-nav w-100 align-items-center">
-            {props.auth.id ? (
+            {user ? (
               <>
-                <li className="nav-item ml-auto">
+                {adminLinks}
+                <li className="nav-item ">
                   <Link className="nav-link" to="/sign-in">
-                    {props.auth.email}
+                    {user.email}
                   </Link>
                 </li>
                 <li className="nav-item ">

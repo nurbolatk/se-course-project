@@ -1,15 +1,27 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
+import Alert from "./Alert";
 
 class Register extends Component {
   state = {
     firstName: "",
     lastName: "",
     email: "",
-    password: ""
+    password: "",
+    notImplementedAlert: false
   };
   handleSubmit = e => {
     e.preventDefault();
+    if (!this.state.notImplementedAlert) {
+      this.setState({
+        notImplementedAlert: true
+      });
+      setTimeout(() => {
+        this.setState({
+          notImplementedAlert: false
+        });
+      }, 3000);
+    }
   };
 
   handleChange = e => {
@@ -18,9 +30,24 @@ class Register extends Component {
       [name]: value
     });
   };
+
+  closeNotImplementedAlert = () => {
+    this.setState({
+      notImplementedAlert: false
+    });
+  };
   render() {
+    const notImplementedAlert = this.state.notImplementedAlert && (
+      <Alert
+        type="warning"
+        msg="This feature not implemented yet!"
+        additional="w-50"
+        close={this.closeNotImplementedAlert}
+      />
+    );
     return (
-      <div className="d-flex flex-fill justify-content-center align-items-center">
+      <div className="d-flex flex-fill justify-content-center align-items-center flex-column">
+        {notImplementedAlert}
         <div className="card w-50">
           <div className="card-body">
             <h3 className="card-title pt-3 pb-4">Create an account</h3>
