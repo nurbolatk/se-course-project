@@ -17,7 +17,7 @@ const Spinner = props => {
 };
 
 Spinner.defaultProps = {
-  type: "dark",
+  type: "primary",
   small: false
 };
 

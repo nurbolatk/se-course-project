@@ -6,6 +6,7 @@ import Register from "./components/Register";
 import Signin from "./components/Signin";
 import AdminPanel from "./components/AdminPanel";
 import AddRoute from "./components/AddRoute";
+import Routes from "./components/Routes";
 
 const App = () => {
   return (
@@ -21,6 +22,9 @@ const App = () => {
           </Route>
           <Route path="/administration">
             <AdminPanel />
+          </Route>
+          <Route path="/routes">
+            <Routes />
           </Route>
           <Route path="/add-route">
             <AddRoute />

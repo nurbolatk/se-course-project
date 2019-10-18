@@ -1,105 +1,233 @@
 import React, { Component } from "react";
-import Select from "react-select";
 import moment from "moment";
+import { connect } from "react-redux";
+import { withRouter } from "react-router-dom";
+import { addRouteAction } from "../actions/routeActions";
+import RouteRow from "./RouteRow";
 
-const format = "DD/MM/YY HH:mm";
+const format = "YYYY-MM-DD HH:mm:ss";
 
 export class AddRoute extends Component {
   state = {
-    options: [
-      { value: 1, label: "Almaty 1" },
-      { value: 2, label: "Almaty 2" },
-      { value: 3, label: "Nur-Sultan 1" },
-      { value: 4, label: "Nur-Sultan Nurly Zhol" }
-    ],
-    chosenStation: null,
-    dateOfArrival: "",
-    dateOfDeparture: ""
+    capacity: 100,
+    train: 9,
+    origin: { id: null, depTime: "", arrTime: "" },
+    destination: { id: null, depTime: "", arrTime: "" },
+    stations: []
   };
-  chooseStation = station => {
-    this.setState({ chosenStation: station });
-  };
-  chooseDate = e => {
-    const { name, value } = e.target;
-    this.setState({ [name]: value });
+  checkStation = (station, origin, destination) => {
+    if (!station) {
+      alert(
+        `Please select the ${origin && "first"} ${destination &&
+          "destination"} station!`
+      );
+      return false;
+    }
+    const arrival = moment(station.arrTime, format, true);
+    const departure = moment(station.depTime, format, true);
+    const now = moment();
+    if (arrival.format() === "Invalid date") {
+      alert(
+        `${origin ? "Origin a" : "A"}${
+          destination ? "Destionation a" : "A"
+        }rrival must be in correct format!`
+      );
+      return false;
+    }
+    if (departure.format() === "Invalid date") {
+      alert(
+        `${origin ? "Origin d" : "D"}${
+          destination ? "Destionation d" : "D"
+        }eparture must be in correct format!`
+      );
+      return false;
+    }
+    // if (now.isAfter(arrival)) {
+    //   alert("Your arrival date should be after now!");
+    //   return false;
+    // }
+    // if (departure.isBefore(arrival)) {
+    //   alert("Your departure date should be after arrival!");
+    //   return false;
+    // }
+    return true;
   };
   saveRoute = e => {
     e.preventDefault();
-    if (!this.state.chosenStation) {
-      alert("Please select the station!");
-      return;
-    }
-    const arrival = moment(this.state.dateOfArrival, format, true);
-    const departure = moment(
-      this.state.dateOfDeparture,
-      "DD/MM/YY HH:mm",
-      true
-    );
-    const now = moment();
-    if (arrival.format() === "Invalid date") {
-      alert("Arrival must be in correct format!");
-      return;
-    }
-    if (departure.format() === "Invalid date") {
-      alert("Departure must be in correct format!");
-      return;
-    }
-    if (now.isAfter(arrival)) {
-      alert("Your arrival date should be after now!");
-      return;
-    }
-    if (departure.isBefore(arrival)) {
-      alert("Your departure date should be after arrival!");
-      return;
-    }
+    // chec origin
+    if (!this.checkStation(this.state.origin, true, false)) return;
+    // check stations inbetween
+    this.state.stations.forEach(s => {
+      if (!this.checkStation(s, false, false)) return;
+    });
+    // chec destination
+    if (!this.checkStation(this.state.destination, false, true)) return;
+    console.log("hello");
+
+    // {
+    //     "capacity": 100,
+    //     "train": 9,
+    //     "stations": [
+    //       {"id": 1, "depTime": "2016-10-11 08:30:00",
+    //        "arrTime": "2016-10-11 08:00:00"},
+    //       {"id": 4, "depTime": "2016-10-12 04:30:00",
+    //        "arrTime": "2016-10-12 04:00:00"},
+    //       {"id": 10, "depTime": "2016-10-12 07:30:00",
+    //        "arrTime": "2016-10-12 07:00:00"},
+    //       {"id": 2, "depTime": "2016-10-12 02:30:00",
+    //        "arrTime": "2016-10-12 02:00:00"}
+    //     ]
+    //   }
     const res = {
-      stationId: this.state.chosenStation.value,
-      arrival: this.state.dateOfArrival,
-      departure: this.state.dateOfDeparture
+      capacity: this.state.capacity,
+      train: this.state.train,
+      stations: [
+        this.state.origin,
+        ...this.state.stations,
+        this.state.destination
+      ]
     };
     console.log(res);
+    this.props.addRoute(res, this.props.history);
+  };
+  addStation = e => {
+    this.setState(state => {
+      return {
+        ...state,
+        stations: [...state.stations, { id: null, depTime: "", arrTime: "" }]
+      };
+    });
+  };
+  removeStation = (e, ind) => {
+    this.setState(state => {
+      return {
+        ...state,
+        stations: state.stations.filter((s, i) => i !== ind)
+      };
+    });
+  };
+  onSelectStation = (ind, id, origin, destination) => {
+    if (origin) {
+      this.setState(state => ({
+        origin: {
+          ...state.origin,
+          id: id
+        }
+      }));
+    } else if (destination) {
+      this.setState(state => ({
+        destination: {
+          ...state.destination,
+          id: id
+        }
+      }));
+    } else {
+      this.setState(state => {
+        const newState = { ...state };
+        newState.stations[ind].id = id;
+        return newState;
+      });
+    }
+  };
+  onSelectDepTime = (ind, depTime, origin, destination) => {
+    if (origin) {
+      this.setState(state => ({
+        origin: {
+          ...state.origin,
+          depTime: depTime + ":00"
+        }
+      }));
+    } else if (destination) {
+      this.setState(state => ({
+        destination: {
+          ...state.destination,
+          depTime: depTime + ":00"
+        }
+      }));
+    } else {
+      this.setState(state => {
+        const newState = { ...state };
+        newState.stations[ind].depTime = depTime + ":00";
+        console.log(newState);
+        return newState;
+      });
+    }
+  };
+  onSelectArrTime = (ind, arrTime, origin, destination) => {
+    if (origin) {
+      this.setState(state => ({
+        origin: {
+          ...state.origin,
+          arrTime: arrTime + ":00"
+        }
+      }));
+    } else if (destination) {
+      this.setState(state => ({
+        destination: {
+          ...state.destination,
+          arrTime: arrTime + ":00"
+        }
+      }));
+    } else {
+      this.setState(state => {
+        const newState = { ...state };
+        newState.stations[ind].arrTime = arrTime + ":00";
+        console.log(newState);
+        return newState;
+      });
+    }
   };
   render() {
+    const options = this.props.stations.map(s => ({
+      value: s.idStation,
+      label: s.name
+    }));
     return (
       <div className="container mt-5">
         <div className="card">
           <div className="card-body">
             <h5 className="card-title mb-4">Create new route</h5>
             <form onSubmit={this.saveRoute}>
-              <div className="form-group">
-                <label htmlFor="Station">Select station</label>
-                <Select
-                  options={this.state.options}
-                  onChange={this.chooseStation}
-                />
+              <RouteRow
+                options={options}
+                origin
+                onSelectStation={this.onSelectStation}
+                onSelectDepTime={this.onSelectDepTime}
+                onSelectArrTime={this.onSelectArrTime}
+                state={this.state.origin}
+              />
+              {this.state.stations.map((s, i) => {
+                return (
+                  <RouteRow
+                    options={options}
+                    ind={i}
+                    key={i}
+                    removeStation={this.removeStation}
+                    onSelectStation={this.onSelectStation}
+                    onSelectDepTime={this.onSelectDepTime}
+                    onSelectArrTime={this.onSelectArrTime}
+                    state={s}
+                  />
+                );
+              })}
+              <div className="form-row">
+                <button
+                  type="button"
+                  className="btn btn-light col-12"
+                  onClick={this.addStation}
+                >
+                  Add station
+                </button>
               </div>
-              <div className="form-group">
-                <label htmlFor="Station">Select date and time of arrival</label>
-                <input
-                  type="text"
-                  className="form-control"
-                  id="Station"
-                  placeholder={format}
-                  value={this.state.dateOfArrival}
-                  name="dateOfArrival"
-                  onChange={this.chooseDate}
-                />
-              </div>
-              <div className="form-group">
-                <label htmlFor="Station">
-                  Select date and time of departure
-                </label>
-                <input
-                  type="text"
-                  className="form-control"
-                  id="Station"
-                  placeholder={format}
-                  value={this.state.dateOfDeparture}
-                  name="dateOfDeparture"
-                  onChange={this.chooseDate}
-                />
-              </div>
-              <button className="btn btn-primary ">Save</button>
+              <RouteRow
+                options={options}
+                destination
+                onSelectStation={this.onSelectStation}
+                onSelectDepTime={this.onSelectDepTime}
+                onSelectArrTime={this.onSelectArrTime}
+                state={this.state.destination}
+              />
+              <input type="submit" className="btn btn-primary " value="Save" />
             </form>
           </div>
         </div>
@@ -108,4 +236,19 @@ export class AddRoute extends Component {
   }
 }
 
-export default AddRoute;
+const mapDispatchToProps = dispatch => ({
+  addRoute: (routeData, history) => dispatch(addRouteAction(routeData, history))
+});
+
+const mapStateToProps = state => {
+  return {
+    stations: state.station.stations
+  };
+};
+
+export default withRouter(
+  connect(
+    mapStateToProps,
+    mapDispatchToProps
+  )(AddRoute)
+);
