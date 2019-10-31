@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css?family=Nunito:400,700&display=swap");
+@import url('https://fonts.googleapis.com/css?family=Nunito:400,700&display=swap');
 
 /* *,
 *::before,
@@ -17,10 +17,6 @@ body {
   font-size: 1.6rem;
   font-family: Nunito, sans-serif;
 } */
-
-.home {
-  height: 100vh;
-}
 
 .card-button {
   background-color: #fff;
@@ -55,4 +51,12 @@ body {
 .card-button.primary:hover {
   color: #007bff;
   background-color: #fff;
+}
+
+.home-page {
+  height: 95vh;
+  background-image: url(./imgs/home.jpg);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
 }
