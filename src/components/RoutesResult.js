@@ -1,32 +1,28 @@
 import React from 'react'
-import TrainResult from './TrainResult'
-
-const RoutesResult = () => {
-  return (
-    <div className='container mt-5'>
-      <div class='list-group'>
-        <a href='#' class='list-group-item list-group-item-action'>
-          <TrainResult />
-        </a>
-        <a href='#' class='list-group-item list-group-item-action'>
-          Dapibus ac facilisis in
-        </a>
-        <a href='#' class='list-group-item list-group-item-action'>
-          Morbi leo risus
-        </a>
-        <a href='#' class='list-group-item list-group-item-action'>
-          Porta ac consectetur ac
-        </a>
-        <a
-          href='#'
-          class='list-group-item list-group-item-action disabled'
-          tabindex='-1'
-          aria-disabled='true'>
-          Vestibulum at eros
-        </a>
+import { connect } from 'react-redux'
+import TrainRow from './TrainRow'
+class RoutesResult extends React.Component {
+  render() {
+    const { routes } = this.props
+    console.log('routes', routes)
+    return (
+      <div className='container mt-5'>
+        <div class='list-group'>
+          {routes.map(r => (
+            <li class='list-group-item' key={r.RouteId}>
+              <TrainRow route={r} />
+            </li>
+          ))}
+        </div>
       </div>
-    </div>
-  )
+    )
+  }
+}
+const mapStateToProps = state => {
+  console.log('state', state)
+  return {
+    routes: state.route.routes,
+  }
 }
 
-export default RoutesResult
+export default connect(mapStateToProps)(RoutesResult)

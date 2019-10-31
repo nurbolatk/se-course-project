@@ -9,7 +9,11 @@ export const getStationsAction = dispatch => {
       // make async call
       Axios.get(domain + '/stations')
         .then(res => {
-          dispatch({ type: GET_STATIONS, data: res.data })
+          const options = res.map(s => ({
+            value: s.idStation,
+            label: s.name,
+          }))
+          dispatch({ type: GET_STATIONS, data: options })
         })
         .catch(e => {
           console.log(e)

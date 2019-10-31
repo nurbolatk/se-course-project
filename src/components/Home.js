@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
 import { getStationsAction } from '../actions/stationActions'
 import { searchRoutesAction } from '../actions/routeActions'
-
+import Select from 'react-select'
 export class Home extends Component {
   state = {
     from: '',
@@ -32,36 +32,41 @@ export class Home extends Component {
       [name]: value,
     })
   }
+  selectStation = (station, isFrom) => {
+    if (isFrom) {
+      this.setState({ from: station })
+    } else {
+      this.setState({ to: station })
+    }
+  }
   render() {
     return (
       <div className='home-page'>
         <form onSubmit={this.handleSubmit} className='container mt-5'>
           <h1 className='text-center mb-5'>Qazaqstan Temir Zholy</h1>
-          <div className='mt-5 form-group d-flex'>
-            <input
-              type='text'
-              className='form-control'
-              name='from'
-              placeholder='From'
-              value={this.state.from}
-              onChange={this.onChange}
-            />
-            <input
-              type='text'
-              className='form-control'
-              name='to'
-              placeholder='To'
-              value={this.state.to}
-              onChange={this.onChange}
-            />
-            <input
-              type='text'
-              className='form-control'
-              name='date'
-              placeholder='Date'
-              value={this.state.date}
-              onChange={this.onChange}
-            />
+          <div className='mt-5 row'>
+            <div className='col'>
+              <Select
+                onChange={station => this.selectStation(station, true)}
+                options={this.props.stations}
+              />
+            </div>
+            <div className='col'>
+              <Select
+                onChange={station => this.selectStation(station)}
+                options={this.props.stations}
+              />
+            </div>
+            <div className='col'>
+              <input
+                type='text'
+                className='form-control'
+                name='date'
+                placeholder='Date'
+                value={this.state.date}
+                onChange={this.onChange}
+              />
+            </div>
             <button type='submit' className='btn btn-primary'>
               Search
             </button>
@@ -69,6 +74,12 @@ export class Home extends Component {
         </form>
       </div>
     )
+  }
+}
+
+const mapStateToProps = state => {
+  return {
+    stations: state.station.stations,
   }
 }
 
@@ -83,7 +94,7 @@ const mapDispatchToProps = dispatch => {
 
 export default withRouter(
   connect(
-    null,
+    mapStateToProps,
     mapDispatchToProps
   )(Home)
 )

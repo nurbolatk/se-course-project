@@ -1,46 +1,43 @@
-import React, { Component } from "react";
-import moment from "moment";
-import { connect } from "react-redux";
-import { withRouter } from "react-router-dom";
-import { addRouteAction } from "../actions/routeActions";
-import RouteRow from "./RouteRow";
+import React, { Component } from 'react'
+import moment from 'moment'
+import { connect } from 'react-redux'
+import { withRouter } from 'react-router-dom'
+import { addRouteAction } from '../actions/routeActions'
+import RouteRow from './RouteRow'
 
-const format = "YYYY-MM-DD HH:mm:ss";
+const format = 'YYYY-MM-DD HH:mm'
 
 export class AddRoute extends Component {
   state = {
     capacity: 100,
     train: 9,
-    origin: { id: null, depTime: "", arrTime: "" },
-    destination: { id: null, depTime: "", arrTime: "" },
-    stations: []
-  };
+    origin: { id: null, depTime: '', arrTime: '' },
+    destination: { id: null, depTime: '', arrTime: '' },
+    stations: [],
+  }
   checkStation = (station, origin, destination) => {
     if (!station) {
-      alert(
-        `Please select the ${origin && "first"} ${destination &&
-          "destination"} station!`
-      );
-      return false;
+      alert(`Please select the ${origin && 'first'} ${destination && 'destination'} station!`)
+      return false
     }
-    const arrival = moment(station.arrTime, format, true);
-    const departure = moment(station.depTime, format, true);
-    const now = moment();
-    if (arrival.format() === "Invalid date") {
+    const arrival = moment(station.arrTime, format, true)
+    const departure = moment(station.depTime, format, true)
+    const now = moment()
+    if (arrival.format() === 'Invalid date') {
       alert(
-        `${origin ? "Origin a" : "A"}${
-          destination ? "Destionation a" : "A"
+        `${origin ? 'Origin a' : 'A'}${
+          destination ? 'Destionation a' : 'A'
         }rrival must be in correct format!`
-      );
-      return false;
+      )
+      return false
     }
-    if (departure.format() === "Invalid date") {
+    if (departure.format() === 'Invalid date') {
       alert(
-        `${origin ? "Origin d" : "D"}${
-          destination ? "Destionation d" : "D"
+        `${origin ? 'Origin d' : 'D'}${
+          destination ? 'Destionation d' : 'D'
         }eparture must be in correct format!`
-      );
-      return false;
+      )
+      return false
     }
     // if (now.isAfter(arrival)) {
     //   alert("Your arrival date should be after now!");
@@ -50,19 +47,19 @@ export class AddRoute extends Component {
     //   alert("Your departure date should be after arrival!");
     //   return false;
     // }
-    return true;
-  };
+    return true
+  }
   saveRoute = e => {
-    e.preventDefault();
+    e.preventDefault()
     // chec origin
-    if (!this.checkStation(this.state.origin, true, false)) return;
+    if (!this.checkStation(this.state.origin, true, false)) return
     // check stations inbetween
     this.state.stations.forEach(s => {
-      if (!this.checkStation(s, false, false)) return;
-    });
+      if (!this.checkStation(s, false, false)) return
+    })
     // chec destination
-    if (!this.checkStation(this.state.destination, false, true)) return;
-    console.log("hello");
+    if (!this.checkStation(this.state.destination, false, true)) return
+    console.log('hello')
 
     // {
     //     "capacity": 100,
@@ -82,114 +79,113 @@ export class AddRoute extends Component {
       capacity: this.state.capacity,
       train: this.state.train,
       stations: [
-        this.state.origin,
-        ...this.state.stations,
-        this.state.destination
-      ]
-    };
-    console.log(res);
-    this.props.addRoute(res, this.props.history);
-  };
+        this.refactorDates(this.state.origin),
+        this.state.stations.map(s => this.refactorDates(s)),
+        this.refactorDates(this.state.destination),
+      ],
+    }
+    console.log(res)
+    this.props.addRoute(res, this.props.history)
+  }
+  refactorDates = station => {
+    return { ...station, depTime: station.depTime + ':00', arrTime: station.arrTime + ':00' }
+  }
   addStation = e => {
     this.setState(state => {
       return {
         ...state,
-        stations: [...state.stations, { id: null, depTime: "", arrTime: "" }]
-      };
-    });
-  };
+        stations: [...state.stations, { id: null, depTime: '', arrTime: '' }],
+      }
+    })
+  }
   removeStation = (e, ind) => {
     this.setState(state => {
       return {
         ...state,
-        stations: state.stations.filter((s, i) => i !== ind)
-      };
-    });
-  };
+        stations: state.stations.filter((s, i) => i !== ind),
+      }
+    })
+  }
   onSelectStation = (ind, id, origin, destination) => {
     if (origin) {
       this.setState(state => ({
         origin: {
           ...state.origin,
-          id: id
-        }
-      }));
+          id: id,
+        },
+      }))
     } else if (destination) {
       this.setState(state => ({
         destination: {
           ...state.destination,
-          id: id
-        }
-      }));
+          id: id,
+        },
+      }))
     } else {
       this.setState(state => {
-        const newState = { ...state };
-        newState.stations[ind].id = id;
-        return newState;
-      });
+        const newState = { ...state }
+        newState.stations[ind].id = id
+        return newState
+      })
     }
-  };
+  }
   onSelectDepTime = (ind, depTime, origin, destination) => {
     if (origin) {
       this.setState(state => ({
         origin: {
           ...state.origin,
-          depTime: depTime + ":00"
-        }
-      }));
+          depTime: depTime,
+        },
+      }))
     } else if (destination) {
       this.setState(state => ({
         destination: {
           ...state.destination,
-          depTime: depTime + ":00"
-        }
-      }));
+          depTime: depTime,
+        },
+      }))
     } else {
       this.setState(state => {
-        const newState = { ...state };
-        newState.stations[ind].depTime = depTime + ":00";
-        console.log(newState);
-        return newState;
-      });
+        const newState = { ...state }
+        newState.stations[ind].depTime = depTime
+        console.log(newState)
+        return newState
+      })
     }
-  };
+  }
   onSelectArrTime = (ind, arrTime, origin, destination) => {
     if (origin) {
       this.setState(state => ({
         origin: {
           ...state.origin,
-          arrTime: arrTime + ":00"
-        }
-      }));
+          arrTime: arrTime,
+        },
+      }))
     } else if (destination) {
       this.setState(state => ({
         destination: {
           ...state.destination,
-          arrTime: arrTime + ":00"
-        }
-      }));
+          arrTime: arrTime,
+        },
+      }))
     } else {
       this.setState(state => {
-        const newState = { ...state };
-        newState.stations[ind].arrTime = arrTime + ":00";
-        console.log(newState);
-        return newState;
-      });
+        const newState = { ...state }
+        newState.stations[ind].arrTime = arrTime
+        console.log(newState)
+        return newState
+      })
     }
-  };
+  }
   render() {
-    const options = this.props.stations.map(s => ({
-      value: s.idStation,
-      label: s.name
-    }));
     return (
-      <div className="container mt-5">
-        <div className="card">
-          <div className="card-body">
-            <h5 className="card-title mb-4">Create new route</h5>
+      <div className='container mt-5'>
+        <div className='card'>
+          <div className='card-body'>
+            <h5 className='card-title mb-4'>Create new route</h5>
             <form onSubmit={this.saveRoute}>
               <RouteRow
-                options={options}
+                options={this.props.stations}
                 origin
                 onSelectStation={this.onSelectStation}
                 onSelectDepTime={this.onSelectDepTime}
@@ -199,7 +195,7 @@ export class AddRoute extends Component {
               {this.state.stations.map((s, i) => {
                 return (
                   <RouteRow
-                    options={options}
+                    options={this.props.stations}
                     ind={i}
                     key={i}
                     removeStation={this.removeStation}
@@ -208,47 +204,43 @@ export class AddRoute extends Component {
                     onSelectArrTime={this.onSelectArrTime}
                     state={s}
                   />
-                );
+                )
               })}
-              <div className="form-row">
-                <button
-                  type="button"
-                  className="btn btn-light col-12"
-                  onClick={this.addStation}
-                >
+              <div className='form-row'>
+                <button type='button' className='btn btn-light col-12' onClick={this.addStation}>
                   Add station
                 </button>
               </div>
               <RouteRow
-                options={options}
+                options={this.props.stations}
                 destination
                 onSelectStation={this.onSelectStation}
                 onSelectDepTime={this.onSelectDepTime}
                 onSelectArrTime={this.onSelectArrTime}
                 state={this.state.destination}
               />
-              <input type="submit" className="btn btn-primary " value="Save" />
+              <input type='submit' className='btn btn-primary ' value='Save' />
             </form>
           </div>
         </div>
       </div>
-    );
+    )
   }
 }
 
 const mapDispatchToProps = dispatch => ({
-  addRoute: (routeData, history) => dispatch(addRouteAction(routeData, history))
-});
+  addRoute: (routeData, history) => dispatch(addRouteAction(routeData, history)),
+})
 
 const mapStateToProps = state => {
   return {
-    stations: state.station.stations
-  };
-};
+    stations: state.station.stations,
+  }
+}
 
 export default withRouter(
   connect(
     mapStateToProps,
     mapDispatchToProps
   )(AddRoute)
-);
+)

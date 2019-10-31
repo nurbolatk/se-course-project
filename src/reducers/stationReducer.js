@@ -1,31 +1,31 @@
-import { REQUEST_STATIONS, GET_STATIONS } from "../actions";
+import { REQUEST_STATIONS, GET_STATIONS } from '../actions'
 
 const initial = {
   stations: [
-    { id: 1, name: "Almaty 1" },
-    { id: 2, name: "Almaty 2" },
-    { id: 3, name: "Nur-Sultan 1" },
-    { id: 4, name: "Nur-Sultan Nurly Zhol" }
+    { value: 1, label: 'Almaty 1' },
+    { value: 2, label: 'Almaty 2' },
+    { value: 3, label: 'Nur-Sultan 1' },
+    { value: 4, label: 'Nur-Sultan Nurly Zhol' },
   ],
-  isLoading: false
-};
+  isLoading: false,
+}
 
 const stationReducer = (state = initial, action) => {
   switch (action.type) {
     case REQUEST_STATIONS:
       return {
         ...state,
-        isLoading: true
-      };
+        isLoading: true,
+      }
     case GET_STATIONS:
       return {
         ...state,
         stations: action.data,
-        isLoading: false
-      };
+        isLoading: false,
+      }
     default:
-      return state;
+      return state
   }
-};
+}
 
-export default stationReducer;
+export default stationReducer

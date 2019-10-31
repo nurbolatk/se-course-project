@@ -60,3 +60,8 @@ body {
   background-position: center;
   background-repeat: no-repeat;
 }
+
+.duration-label {
+  font-size: 1rem;
+  margin: 0;
+}
