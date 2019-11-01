@@ -1,12 +1,14 @@
-import { combineReducers } from "redux";
-import authReducer from "./authReducer";
-import routeReducer from "./routeReducer";
-import stationReducer from "./stationReducer";
+import { combineReducers } from 'redux'
+import authReducer from './authReducer'
+import routeReducer from './routeReducer'
+import stationReducer from './stationReducer'
+import seatReducer from './seatReducer'
 
 const rootReducer = combineReducers({
   auth: authReducer,
   route: routeReducer,
-  station: stationReducer
-});
+  seat: seatReducer,
+  station: stationReducer,
+})
 
-export default rootReducer;
+export default rootReducer

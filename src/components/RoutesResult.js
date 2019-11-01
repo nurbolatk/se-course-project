@@ -4,7 +4,6 @@ import TrainRow from './TrainRow'
 class RoutesResult extends React.Component {
   render() {
     const { routes } = this.props
-    console.log('routes', routes)
     return (
       <div className='container mt-5'>
         <div class='list-group'>
@@ -19,7 +18,6 @@ class RoutesResult extends React.Component {
   }
 }
 const mapStateToProps = state => {
-  console.log('state', state)
   return {
     routes: state.route.routes,
   }

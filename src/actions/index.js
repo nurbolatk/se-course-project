@@ -9,3 +9,6 @@ export const ADD_ROUTE = 'ADD_ROUTE'
 
 export const REQUEST_STATIONS = 'REQUEST_STATIONS'
 export const GET_STATIONS = 'GET_STATIONS'
+
+export const SAVE_SEATS = 'SAVE_SEATS'
+export const YOU_WILL_BE = 'THE_PURPOSE'

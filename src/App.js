@@ -8,6 +8,8 @@ import AdminPanel from './components/AdminPanel'
 import AddRoute from './components/AddRoute'
 import Routes from './components/Routes'
 import RoutesResult from './components/RoutesResult'
+import TrainView from './components/TrainView'
+import AddPassenger from './components/AddPassenger'
 
 const App = () => {
   return (
@@ -32,6 +34,12 @@ const App = () => {
           </Route>
           <Route path='/search-results'>
             <RoutesResult />
+          </Route>
+          <Route path='/view-train/:route_id'>
+            <TrainView />
+          </Route>
+          <Route path='/make-order'>
+            <AddPassenger />
           </Route>
           <Route exact path='/'>
             <Home />

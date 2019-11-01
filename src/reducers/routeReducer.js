@@ -45,12 +45,12 @@ const initial = {
       ],
     },
     {
-      RouteId: 1,
+      RouteId: 2,
       TrainId: 43,
       stations: [
         {
           StationId: 23,
-          Name: 'Nurly-Zhol',
+          Name: 'Karagandy',
           ArrTime: '2016-08-13 13:35',
           DepTime: '2016-08-13 10:12',
         },
@@ -87,12 +87,12 @@ const initial = {
       ],
     },
     {
-      RouteId: 1,
+      RouteId: 3,
       TrainId: 43,
       stations: [
         {
           StationId: 23,
-          Name: 'Nurly-Zhol',
+          Name: 'Almaty-2',
           ArrTime: '2016-08-13 13:35',
           DepTime: '2016-08-14 04:42',
         },
@@ -104,7 +104,7 @@ const initial = {
         },
         {
           StationId: 84,
-          Name: 'Almaty-2',
+          Name: 'Karagandy',
           ArrTime: '2016-08-15 23:12',
           DepTime: null,
         },

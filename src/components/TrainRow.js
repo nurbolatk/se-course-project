@@ -1,5 +1,6 @@
 import React from 'react'
 import moment from 'moment'
+import { Link } from 'react-router-dom'
 import { formatDuration } from '../utils/dateUtils'
 
 const TrainRow = props => {
@@ -51,14 +52,15 @@ const TrainRow = props => {
       </div>
       <div className='list-group list-group-horizontal '>
         {wagons.map((w, i) => (
-          <a
+          <Link
+            to={`/view-train/${route.RouteId}`}
             href='#'
             key={i}
             className='wagon list-group-item d-flex flex-column justify-content-center'>
             <h6 className='type mb-1'>{w.Type}</h6>
             <div className='price'>10 699 KZT</div>
             <div className='available-seats'>{w.AvailableSeats} seats</div>
-          </a>
+          </Link>
         ))}
       </div>
     </div>
