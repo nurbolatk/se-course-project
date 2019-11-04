@@ -65,7 +65,8 @@ class TrainView extends Component {
   }
   render() {
     const route = this.props.routes.find(r => '' + r.RouteId === this.props.match.params.route_id)
-
+    console.log(this.props.routes)
+    console.log('found', route)
     return (
       <div className='container mt-5'>
         <div className=''>

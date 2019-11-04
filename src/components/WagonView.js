@@ -15,13 +15,12 @@ class WagonView extends Component {
   }
   render() {
     const { wagon, wagonNum, selectSeat } = this.props
-    const seats = [...Array(wagon.AvailableSeats).keys()]
     const table = []
     switch (wagon.Type) {
       case 'coupe':
         const top = []
         const bot = []
-        for (let i = 0; i < seats.length; i += 2) {
+        for (let i = 0; i < wagon.AvailableSeats; i += 2) {
           top.push(
             <td>
               <button
@@ -33,7 +32,7 @@ class WagonView extends Component {
             </td>
           )
         }
-        for (let i = 1; i < seats.length; i += 2) {
+        for (let i = 1; i < wagon.AvailableSeats; i += 2) {
           bot.push(
             <td>
               <button
@@ -58,7 +57,7 @@ class WagonView extends Component {
           </tr>
         )
         break
-      case 'placzcart':
+      case 'platzkart':
         const sideNum = Math.floor(wagon.AvailableSeats / 3)
         const topP = []
         const botP = []

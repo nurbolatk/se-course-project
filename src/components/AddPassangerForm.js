@@ -2,11 +2,13 @@ import React, { Component } from 'react'
 
 class AddPassangerForm extends Component {
   render() {
-    const { handleChange, ind } = this.props
+    const { handleChange, ind, wagon, seatNum } = this.props
     return (
       <div className='card mb-4'>
         <div className='card-body'>
-          <h3 className='card-title pt-3 pb-4'>Add a passenger</h3>
+          <h3 className='card-title pt-3 pb-4'>
+            Add a passenger to seat #{seatNum} in wagon #{parseInt(wagon) + 1}
+          </h3>
           <div>
             <div className='form-group'>
               <input
@@ -89,10 +91,6 @@ class AddPassangerForm extends Component {
                 required
               />
             </div>
-
-            <button type='submit' class='btn btn-primary w-100'>
-              Add Passenger
-            </button>
           </div>
         </div>
       </div>

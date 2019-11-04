@@ -19,8 +19,8 @@ export class Home extends Component {
     const { from, to, date } = this.state
     this.props.searchRoutes(
       {
-        from,
-        to,
+        arrivalStationId: from.value,
+        destinationStationId: to.value,
         date,
       },
       this.props.history

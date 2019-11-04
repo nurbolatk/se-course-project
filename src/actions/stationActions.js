@@ -9,9 +9,10 @@ export const getStationsAction = dispatch => {
       // make async call
       Axios.get(domain + '/stations')
         .then(res => {
-          const options = res.map(s => ({
-            value: s.idStation,
+          const options = res.data.map(s => ({
+            value: s.stationId,
             label: s.name,
+            city: s.city,
           }))
           dispatch({ type: GET_STATIONS, data: options })
         })

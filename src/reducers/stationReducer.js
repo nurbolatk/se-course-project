@@ -18,6 +18,7 @@ const stationReducer = (state = initial, action) => {
         isLoading: true,
       }
     case GET_STATIONS:
+      console.log(action)
       return {
         ...state,
         stations: action.data,

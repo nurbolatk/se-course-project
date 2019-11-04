@@ -12,8 +12,6 @@ const seatReducer = (state = initialState, action) => {
         seats: action.data,
       }
     default:
-      // tvoim smertelnym oruzhiem
-      // vidimo sam sebya ubil
       return state
   }
 }

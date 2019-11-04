@@ -1,5 +1,6 @@
 import React from 'react'
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
+import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom'
+import { connect } from 'react-redux'
 import Home from './components/Home'
 import Navbar from './components/Navbar'
 import Register from './components/Register'
@@ -11,7 +12,26 @@ import RoutesResult from './components/RoutesResult'
 import TrainView from './components/TrainView'
 import AddPassenger from './components/AddPassenger'
 
-const App = () => {
+const PrivateRoute = ({ component: Component, auth, ...rest }) => (
+  <Route
+    {...rest}
+    render={props => {
+      if (auth.user) return <Component {...props} />
+      else {
+        alert('Please log in!')
+        return (
+          <Redirect
+            to={{
+              pathname: '/sign-in',
+            }}
+          />
+        )
+      }
+    }}
+  />
+)
+
+const App = props => {
   return (
     <Router>
       <div className='home d-flex flex-column'>
@@ -38,9 +58,7 @@ const App = () => {
           <Route path='/view-train/:route_id'>
             <TrainView />
           </Route>
-          <Route path='/make-order'>
-            <AddPassenger />
-          </Route>
+          <PrivateRoute path='/make-order' component={AddPassenger} auth={props.auth} />
           <Route exact path='/'>
             <Home />
           </Route>
@@ -50,4 +68,8 @@ const App = () => {
   )
 }
 
-export default App
+const mapStateToProps = state => {
+  return { auth: state.auth }
+}
+
+export default connect(mapStateToProps)(App)
