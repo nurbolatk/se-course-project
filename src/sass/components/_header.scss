@@ -1,0 +1,18 @@
+.header {
+  background-color: $color-background-dark;
+  padding: 1.3rem 2rem;
+  display: flex;
+  align-items: center;
+}
+
+.logo-box {
+  margin-right: auto;
+}
+
+.logo:link,
+.logo:visited {
+  color: #fff;
+  text-decoration: none;
+  font-family: "Ninja Naruto", sans-serif;
+  color: $color-primary;
+}

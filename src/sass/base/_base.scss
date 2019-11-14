@@ -1,0 +1,34 @@
+* {
+  padding: 0;
+  margin: 0;
+}
+
+*::before,
+*::after {
+  box-sizing: inherit;
+}
+
+:root {
+  box-sizing: border-box;
+  font-size: 62.5%;
+}
+
+#root {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+a {
+  transition: all 0.1s;
+  &:link,
+  &:visited {
+    color: #9c9c9c;
+    text-decoration: none;
+  }
+
+  &:hover,
+  &:active {
+    color: $color-primary;
+  }
+}

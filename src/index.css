@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css?family=Nunito:400,700&display=swap');
+@import url("https://fonts.googleapis.com/css?family=Nunito:400,700&display=swap");
 
 /* *,
 *::before,
@@ -18,7 +18,7 @@ body {
   font-family: Nunito, sans-serif;
 } */
 
-.card-button {
+/* .card-button {
   background-color: #fff;
   color: #007bff;
   padding: 2rem 2rem;
@@ -64,4 +64,4 @@ body {
 .duration-label {
   font-size: 1rem;
   margin: 0;
-}
+} */

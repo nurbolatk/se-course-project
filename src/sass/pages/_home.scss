@@ -1,0 +1,14 @@
+.page-bg {
+  background-image: url(./img/clouds-red.png);
+  background-size: 7%;
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.search {
+  .form__input {
+    margin-right: 1rem;
+  }
+}

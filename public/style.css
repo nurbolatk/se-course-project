@@ -1,0 +1,123 @@
+@import url("https://fonts.googleapis.com/css?family=Nunito:300,400,700&display=swap");
+@font-face {
+  font-family: "Ninja Naruto";
+  font-style: normal;
+  font-weight: normal;
+  src: local("Ninja Naruto"), url("../fonts/njnaruto.woff") format("woff");
+}
+body {
+  background-color: #333;
+  font-family: "Nunito", sans-serif;
+  color: #fff;
+  font-size: 1.6rem;
+  line-height: 1.6;
+}
+
+.h3 {
+  font-weight: 400;
+  /* text-transform: uppercase; */
+  margin-bottom: 3rem;
+  font-size: 2rem;
+}
+
+* {
+  padding: 0;
+  margin: 0;
+}
+
+*::before,
+*::after {
+  box-sizing: inherit;
+}
+
+:root {
+  box-sizing: border-box;
+  font-size: 62.5%;
+}
+
+#root {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+a {
+  transition: all 0.1s;
+}
+a:link, a:visited {
+  color: #9c9c9c;
+  text-decoration: none;
+}
+a:hover, a:active {
+  color: #cb2a27;
+}
+
+.page-bg {
+  background-image: url(./img/clouds-red.png);
+  background-size: 7%;
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.search .form__input {
+  margin-right: 1rem;
+}
+
+.navbar {
+  display: flex;
+}
+.navbar__item:not(:last-child) {
+  margin-right: 1rem;
+}
+
+.header {
+  background-color: #0f0f11;
+  padding: 1.3rem 2rem;
+  display: flex;
+  align-items: center;
+}
+
+.logo-box {
+  margin-right: auto;
+}
+
+.logo:link,
+.logo:visited {
+  color: #fff;
+  text-decoration: none;
+  font-family: "Ninja Naruto", sans-serif;
+  color: #cb2a27;
+}
+
+.form__input {
+  padding: 1.5rem 3rem;
+  border: none;
+  /* background-color: #27272d; */
+  background-color: #1b1b1f;
+  border-radius: 3px;
+  color: #fff;
+  font-size: 1.4rem;
+  text-transform: uppercase;
+}
+
+.btn {
+  border: none;
+  padding: 1.5rem 3rem;
+}
+.btn--primary {
+  background-color: #cb2a27;
+  color: #000;
+  border-radius: 3px;
+  text-transform: uppercase;
+}
+
+.card {
+  background-color: #0f0f11;
+  padding: 4rem;
+  border-radius: 3px;
+  box-shadow: 0 2rem 5rem rgba(0, 0, 0, 0.15);
+}
+
+/*# sourceMappingURL=style.css.map */

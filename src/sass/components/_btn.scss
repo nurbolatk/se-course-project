@@ -1,0 +1,11 @@
+.btn {
+  border: none;
+  padding: 1.5rem 3rem;
+
+  &--primary {
+    background-color: $color-primary;
+    color: #000;
+    border-radius: 3px;
+    text-transform: uppercase;
+  }
+}
