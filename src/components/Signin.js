@@ -26,62 +26,47 @@ class Signin extends React.Component {
   render() {
     const { isFetching } = this.props
     return (
-      <div className='d-flex flex-fill justify-content-center align-items-center mt-5'>
-        <div className='card w-50'>
-          <div className='card-body'>
-            <h3 className='card-title pt-3 pb-4'>Sign in</h3>
-            <form onSubmit={this.signIn}>
-              <div className='form-group'>
-                <input
-                  type='email'
-                  className='form-control'
-                  id='inputEmail4'
-                  placeholder='Email'
-                  name='email'
-                  value={this.state.email}
-                  onChange={this.handleChange}
-                  disabled={isFetching}
-                  required
-                />
-              </div>
-              <div className='form-group'>
-                <input
-                  type='password'
-                  className='form-control'
-                  id='inputPassword4'
-                  placeholder='Password'
-                  name='password'
-                  value={this.state.password}
-                  onChange={this.handleChange}
-                  disabled={isFetching}
-                />
-              </div>
+      <div className="signin">
+        <div className="card">
+          <h2 className="card__title">Sign in</h2>
+          <form onSubmit={this.signIn}>
+            <div className="form__group">
+              <input
+                type="email"
+                className="form__input"
+                id="inputEmail4"
+                placeholder="Email"
+                name="email"
+                value={this.state.email}
+                onChange={this.handleChange}
+                disabled={isFetching}
+                required
+              />
+            </div>
+            <div className="form__group">
+              <input
+                type="password"
+                className="form__input"
+                id="inputPassword4"
+                placeholder="Password"
+                name="password"
+                value={this.state.password}
+                onChange={this.handleChange}
+                disabled={isFetching}
+              />
+            </div>
 
-              <div className='form-group'>
-                <div className='form-check'>
-                  <input
-                    className='form-check-input'
-                    type='checkbox'
-                    id='gridCheck'
-                    checked={this.state.remember}
-                    name='remember'
-                    onChange={this.handleChange}
-                    disabled={isFetching}
-                  />
-                  <label className='form-check-label' htmlFor='gridCheck'>
-                    Remember me
-                  </label>
-                </div>
-              </div>
-              <button type='submit' className='btn btn-primary w-100' disabled={isFetching}>
-                {isFetching ? <Spinner type='small' /> : 'Sign in'}
-              </button>
-              <hr />
-              <Link to='/sign-up' className='text-center small text-muted w-100 d-block'>
-                Don't have an account? Create one!
-              </Link>
-            </form>
-          </div>
+            <button
+              type="submit"
+              className="btn btn--primary mb-3"
+              disabled={isFetching}
+            >
+              {isFetching ? <Spinner type="small" /> : 'Sign in'}
+            </button>
+            <Link to="/sign-up" className="signin__link">
+              Don't have an account? Create one!
+            </Link>
+          </form>
         </div>
       </div>
     )
@@ -93,12 +78,8 @@ const mapStateToProps = state => ({
 })
 
 const mapDispathToProps = dispatch => ({
-  signIn: (credentials, history) => dispatch(signInAction(credentials, history)),
+  signIn: (credentials, history) =>
+    dispatch(signInAction(credentials, history)),
 })
 
-export default withRouter(
-  connect(
-    mapStateToProps,
-    mapDispathToProps
-  )(Signin)
-)
+export default withRouter(connect(mapStateToProps, mapDispathToProps)(Signin))

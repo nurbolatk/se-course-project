@@ -8,9 +8,17 @@
 }
 
 .search {
-  display: flex;
-  align-items: flex-start;
-  & > *:not(:last-child) {
-    margin-right: 1rem;
+  // display: flex;
+  // align-items: flex-start;
+  // & > *:not(:last-child) {
+  //   margin-right: 1rem;
+  // }
+
+  display: grid;
+  grid-template-columns: repeat(3, 1fr) 15rem;
+  grid-gap: 1rem;
+  align-items: center;
+  & > * {
+    flex: 1;
   }
 }

@@ -1,23 +1,28 @@
-@import url("https://fonts.googleapis.com/css?family=Nunito:300,400,700&display=swap");
+@import url('https://fonts.googleapis.com/css?family=Nunito:300,400,700&display=swap');
 
 @font-face {
-  font-family: "Ninja Naruto";
+  font-family: 'Ninja Naruto';
   font-style: normal;
   font-weight: normal;
-  src: local("Ninja Naruto"), url("../fonts/njnaruto.woff") format("woff");
+  src: local('Ninja Naruto'), url('../fonts/njnaruto.woff') format('woff');
 }
 
 body {
   background-color: #333;
-  font-family: "Nunito", sans-serif;
+  font-family: 'Nunito', sans-serif;
   color: #fff;
   font-size: 1.6rem;
   line-height: 1.6;
 }
 
-.h3 {
+h3 {
   font-weight: 400;
   /* text-transform: uppercase; */
   margin-bottom: 3rem;
   font-size: 2rem;
+}
+
+h2 {
+  font-weight: 400;
+  font-size: 2.6rem;
 }

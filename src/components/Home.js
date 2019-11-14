@@ -1,16 +1,17 @@
-import React, { Component } from "react"
-import { connect } from "react-redux"
-import { withRouter } from "react-router-dom"
-import { getStationsAction } from "../actions/stationActions"
-import { searchRoutesAction } from "../actions/routeActions"
-import Select from "react-select"
-import DropDownSearch from "./DropDownSearch"
+import React, { Component } from 'react'
+import { connect } from 'react-redux'
+import { withRouter } from 'react-router-dom'
+import { getStationsAction } from '../actions/stationActions'
+import { searchRoutesAction } from '../actions/routeActions'
+import Select from 'react-select'
+import DropDownSearch from './DropDownSearch'
+import DateInput from './DateInput'
 
 export class Home extends Component {
   state = {
-    from: "",
-    to: "",
-    date: ""
+    from: '',
+    to: '',
+    date: '',
   }
   componentDidMount() {
     console.log(this.props)
@@ -23,7 +24,7 @@ export class Home extends Component {
       {
         arrivalStationId: from.value,
         destinationStationId: to.value,
-        date
+        date,
       },
       this.props.history
     )
@@ -31,7 +32,7 @@ export class Home extends Component {
   onChange = e => {
     const { name, value } = e.target
     this.setState({
-      [name]: value
+      [name]: value,
     })
   }
   selectStation = (station, isFrom) => {
@@ -44,21 +45,17 @@ export class Home extends Component {
   render() {
     return (
       <>
-        <main>
+        <div className="home">
           <div className=" card">
-            <h3 className="h3">Search for the tickets</h3>
+            <h3 className="card__title">Search for the tickets</h3>
             <form onSubmit={this.handleSubmit} className="search">
               <DropDownSearch placeholder="From" items={this.props.stations} />
               <DropDownSearch placeholder="To" items={this.props.stations} />
-              <input
-                type="datetime"
-                className="form__input"
-                placeholder="Date"
-              />
+              <DateInput />
               <button className="btn btn--primary">Search</button>
             </form>
           </div>
-        </main>
+        </div>
         {/* <form onSubmit={this.handleSubmit} className="container mt-5">
           <h1 className="text-center mb-5">Qazaqstan Temir Zholy</h1>
           <div className="mt-5 row">
@@ -97,7 +94,7 @@ export class Home extends Component {
 
 const mapStateToProps = state => {
   return {
-    stations: state.station.stations
+    stations: state.station.stations,
   }
 }
 
@@ -107,7 +104,7 @@ const mapDispatchToProps = dispatch => {
     dispatch(searchRoutesAction(params, history))
   return {
     getStations,
-    searchRoutes
+    searchRoutes,
   }
 }
 

@@ -1,4 +1,5 @@
 import React, { Component } from "react"
+import Downshift from "downshift"
 
 class DropDownSearch extends Component {
   state = {
@@ -15,26 +16,60 @@ class DropDownSearch extends Component {
     })
     this.setState({ items: results })
   }
+  selectItem = item => {
+    console.log(item)
+  }
   render() {
     const { placeholder } = this.props
     return (
-      <div className="dropdown-search-box">
-        <input
-          type="search"
-          className="dropdown-search dropdown-search--open"
-          placeholder={placeholder}
-          onChange={this.handleChange}
-        />
-        <div className="dropdown-search-results-box">
-          {this.state.items.map((item, index) => {
-            return (
-              <div key={item.value} className="dropdown-search-result">
-                {item.label}
+      <Downshift
+        itemToString={item => (item === null ? "" : item.label)}
+        onChange={this.selectItem}
+      >
+        {({
+          getInputProps,
+          getItemProps,
+          isOpen,
+          inputValue,
+          highlightedIndex
+        }) => (
+          <div className="dropdown-search-box">
+            <input
+              {...getInputProps({
+                type: "search",
+                className: `dropdown-search ${
+                  isOpen ? "dropdown-search--open" : ""
+                }`,
+                placeholder: placeholder,
+                onChange: this.handleChange
+              })}
+            />
+            {isOpen && (
+              <div className="dropdown-search-results-box">
+                {this.state.items.map((item, index) => {
+                  return (
+                    <div
+                      {...getItemProps({
+                        item,
+                        highlighted: index === highlightedIndex ? 1 : 0,
+                        index,
+                        key: item.value,
+                        className: `dropdown-search-result ${
+                          index === highlightedIndex
+                            ? "dropdown-search-result--highlighted"
+                            : ""
+                        }`
+                      })}
+                    >
+                      {item.label}
+                    </div>
+                  )
+                })}
               </div>
-            )
-          })}
-        </div>
-      </div>
+            )}
+          </div>
+        )}
+      </Downshift>
     )
   }
 }
