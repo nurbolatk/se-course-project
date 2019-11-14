@@ -1,17 +1,17 @@
-import React from "react";
-import { Link, withRouter } from "react-router-dom";
-import { connect } from "react-redux";
-import { logOutAction } from "../actions/authActions";
+import React from "react"
+import { Link, withRouter } from "react-router-dom"
+import { connect } from "react-redux"
+import { logOutAction } from "../actions/authActions"
 
 const Navbar = props => {
-  const { user } = props.auth;
+  const { user } = props.auth
   const adminLinks = user && user.roles.includes("ADMIN") && (
     <li className="navbar__item">
       <Link className="nav-navbar__link" to="/administration">
         Admin panel
       </Link>
     </li>
-  );
+  )
   return (
     <>
       <header className="header">
@@ -20,7 +20,7 @@ const Navbar = props => {
             Akatsuki
           </Link>
         </div>
-        <nav class="navbar">
+        <nav className="navbar">
           {user ? (
             <>
               {adminLinks}
@@ -56,11 +56,11 @@ const Navbar = props => {
         </nav>
       </header>
     </>
-  );
-};
+  )
+}
 
 const mapStateToProps = state => {
-  return { auth: state.auth };
-};
+  return { auth: state.auth }
+}
 
-export default withRouter(connect(mapStateToProps, logOutAction)(Navbar));
+export default withRouter(connect(mapStateToProps, logOutAction)(Navbar))

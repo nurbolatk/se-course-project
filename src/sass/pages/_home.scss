@@ -8,7 +8,9 @@
 }
 
 .search {
-  .form__input {
+  display: flex;
+  align-items: flex-start;
+  & > *:not(:last-child) {
     margin-right: 1rem;
   }
 }
