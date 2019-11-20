@@ -11,10 +11,15 @@ export const signInAction = (userCredentials, history) => {
     const headers = {
       'Content-Type': 'application/json',
     }
-    Axios.post(domain + '/login', json, { headers }).then(res => {
-      dispatch({ type: SIGNIN, data: res.data })
-      history.push('/')
-    })
+    Axios.post(domain + '/login', json, { headers, timeout: 2000 })
+      .then(res => {
+        dispatch({ type: SIGNIN, data: res.data })
+        history.push('/')
+      })
+      .catch(e => {
+        console.log('Error when sign in', e)
+        dispatch({ type: SIGNIN })
+      })
     // setTimeout(() => {
     //   const data = {
     //     email: userCredentials.email,

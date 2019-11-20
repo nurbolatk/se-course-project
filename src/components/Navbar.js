@@ -1,11 +1,11 @@
-import React from "react"
-import { Link, withRouter } from "react-router-dom"
-import { connect } from "react-redux"
-import { logOutAction } from "../actions/authActions"
+import React from 'react'
+import { Link, withRouter } from 'react-router-dom'
+import { connect } from 'react-redux'
+import { logOutAction } from '../actions/authActions'
 
 const Navbar = props => {
   const { user } = props.auth
-  const adminLinks = user && user.roles.includes("ADMIN") && (
+  const adminLinks = user && (
     <li className="navbar__item">
       <Link className="nav-navbar__link" to="/administration">
         Admin panel
@@ -23,7 +23,16 @@ const Navbar = props => {
         <nav className="navbar">
           {user ? (
             <>
-              {adminLinks}
+              <div className="navbar__item ">
+                <Link className="navbar__link" to="/add-station">
+                  Add Station
+                </Link>
+              </div>
+              <div className="navbar__item ">
+                <Link className="navbar__link" to="/add-route">
+                  Add Route
+                </Link>
+              </div>
               <div className="navbar__item ">
                 <Link className="navbar__link" to="/sign-in">
                   {user.email}
@@ -31,7 +40,7 @@ const Navbar = props => {
               </div>
               <div className="navbar__item ">
                 <button
-                  className="btn btn-link navbar__link"
+                  className="btn btn--link navbar__link"
                   href="#"
                   onClick={() => props.logOut(props.history)}
                 >

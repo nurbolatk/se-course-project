@@ -1,13 +1,17 @@
-import { REQUEST_STATIONS, GET_STATIONS } from "../actions"
+import {
+  REQUEST_STATIONS,
+  GET_STATIONS,
+  STOP_REQUEST_STATIONS,
+} from '../actions'
 
 const initial = {
   stations: [
-    { value: 1, label: "Almaty 1" },
-    { value: 2, label: "Almaty 2" },
-    { value: 3, label: "Nur-Sultan 1" },
-    { value: 4, label: "Nur-Sultan Nurly Zhol" }
+    { value: 1, label: 'Almaty 1' },
+    { value: 2, label: 'Almaty 2' },
+    { value: 3, label: 'Nur-Sultan 1' },
+    { value: 4, label: 'Nur-Sultan Nurly Zhol' },
   ],
-  isLoading: false
+  isLoading: false,
 }
 
 const stationReducer = (state = initial, action) => {
@@ -15,19 +19,24 @@ const stationReducer = (state = initial, action) => {
     case REQUEST_STATIONS:
       return {
         ...state,
-        isLoading: true
+        isLoading: true,
+      }
+    case STOP_REQUEST_STATIONS:
+      return {
+        ...state,
+        isLoading: false,
       }
     case GET_STATIONS:
       if (action && action.data) {
         return {
           ...state,
           stations: action.data,
-          isLoading: false
+          isLoading: false,
         }
       }
       return {
         ...state,
-        isLoading: false
+        isLoading: false,
       }
     default:
       return state

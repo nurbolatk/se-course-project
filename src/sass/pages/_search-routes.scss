@@ -1,0 +1,59 @@
+.search-routes {
+  width: 80vw;
+  margin-top: 4rem;
+
+  & .card {
+    &:not(:last-child) {
+      margin-bottom: 3rem;
+    }
+  }
+}
+
+.train-row {
+  display: flex;
+
+  .main-info {
+    flex: 0 0 47rem;
+    margin-right: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    text-align: center;
+  }
+
+  .duration-label {
+    font-size: 1.2rem;
+    margin-bottom: 0.8rem;
+  }
+
+  .station {
+    font-size: 2rem;
+    font-weight: 700;
+    color: $color-primary;
+  }
+
+  .time {
+    font-weight: 100;
+    font-size: 5rem;
+  }
+
+  .carriages-list {
+    display: flex;
+
+    .wagon {
+      // background-color: tomato;
+      text-align: center;
+      border: 1px solid currentColor;
+      padding: 1rem 3.25rem;
+      border-radius: 0.25rem;
+      transition: all 0.2s;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+
+      &:not(:last-child) {
+        margin-right: 2rem;
+      }
+    }
+  }
+}

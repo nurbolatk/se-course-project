@@ -64,14 +64,14 @@ h2 {
 }
 
 a {
-  transition: all 0.1s;
+  transition: all 0.2s;
 }
 a:link, a:visited {
   color: #9c9c9c;
   text-decoration: none;
 }
 a:hover, a:active {
-  color: #cb2a27;
+  color: #df241d;
 }
 
 .page-bg {
@@ -101,11 +101,133 @@ a:hover, a:active {
   text-align: center;
 }
 
-.signup__row {
+.add-station {
+  width: 80vw;
+}
+
+.add-route {
+  align-self: flex-start;
+  width: 80vw;
+  margin-top: 4rem;
+}
+.add-route .form__row {
+  margin-bottom: 3rem;
+}
+.add-route .form__row > div {
+  display: flex;
+  flex-direction: column;
+}
+.add-route .form__row > div:not(:last-child) {
+  margin-right: 2rem;
+}
+
+.add-station-name {
+  flex: 6;
+}
+
+.add-station-arr {
+  flex: 3;
+}
+
+.add-station-dep {
+  flex: 3;
+}
+
+.remove-row {
+  flex: 0 0 0.5rem;
+  align-self: flex-end;
+}
+
+.search-routes {
+  width: 80vw;
+  margin-top: 4rem;
+}
+.search-routes .card:not(:last-child) {
+  margin-bottom: 3rem;
+}
+
+.train-row {
   display: flex;
 }
-.signup__row .form__group:not(:last-child) {
+.train-row .main-info {
+  flex: 0 0 47rem;
   margin-right: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  text-align: center;
+}
+.train-row .duration-label {
+  font-size: 1.2rem;
+  margin-bottom: 0.8rem;
+}
+.train-row .station {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #df241d;
+}
+.train-row .time {
+  font-weight: 100;
+  font-size: 5rem;
+}
+.train-row .carriages-list {
+  display: flex;
+}
+.train-row .carriages-list .wagon {
+  text-align: center;
+  border: 1px solid currentColor;
+  padding: 1rem 3.25rem;
+  border-radius: 0.25rem;
+  transition: all 0.2s;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.train-row .carriages-list .wagon:not(:last-child) {
+  margin-right: 2rem;
+}
+
+.wagon-view {
+  max-width: 80vw;
+  min-width: 80vw;
+  overflow: hidden;
+}
+.wagon-view td {
+  padding: 0.4rem;
+}
+.wagon-view .btn {
+  padding: 0;
+  width: 3.2rem;
+  height: 3.2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.wagon-view .spacer {
+  height: 1.5rem;
+}
+
+.train-view {
+  margin-top: 4rem;
+}
+.train-view__header {
+  display: flex;
+  justify-content: space-between;
+}
+
+.add-passenger {
+  width: 70vw;
+  margin-top: 4rem;
+}
+
+.alert {
+  background-color: tomato;
+  color: #721c24;
+  font-size: 1.6rem;
+  padding: 0.75rem 1.25rem;
+  border-radius: 0.25rem;
+  border: 1px solid #f5c6cb;
+  margin-bottom: 1rem;
 }
 
 .navbar {
@@ -131,7 +253,7 @@ a:hover, a:active {
   color: #fff;
   text-decoration: none;
   font-family: "Ninja Naruto", sans-serif;
-  color: #cb2a27;
+  color: #df241d;
 }
 
 .form__input {
@@ -150,6 +272,12 @@ a:hover, a:active {
 }
 .form__group:not(:last-child) {
   margin-bottom: 2rem;
+}
+.form__row {
+  display: flex;
+}
+.form__row .form__group:not(:last-child) {
+  margin-right: 2rem;
 }
 
 input:-webkit-autofill,
@@ -179,12 +307,43 @@ select:-webkit-autofill:focus {
   cursor: pointer;
   display: block;
   width: 100%;
-}
-.btn--primary {
-  background-color: #cb2a27;
-  color: #fff;
+  transition: all 0.2s;
   border-radius: 3px;
   text-transform: uppercase;
+}
+.btn--primary {
+  background-color: #df241d;
+  color: #fff;
+  border: 1px solid #df241d;
+}
+.btn:disabled {
+  cursor: not-allowed;
+}
+.btn--link {
+  border: none;
+  background-color: transparent;
+  color: #9c9c9c;
+  padding: 0;
+  font-size: 1.6rem;
+  display: inline-block;
+  text-transform: none;
+  border: none;
+}
+.btn--link:hover {
+  color: #df241d;
+}
+.btn--secondary {
+  background-color: #9c9c9c;
+  color: #0f0f11;
+  border: 1px solid #9c9c9c;
+}
+.btn--secondary--outline {
+  background-color: transparent;
+  color: #9c9c9c;
+  border: 1px solid currentColor;
+}
+.btn--side {
+  width: auto;
 }
 
 .card {

@@ -18,6 +18,14 @@
       margin-bottom: 2rem;
     }
   }
+
+  &__row {
+    display: flex;
+
+    & .form__group:not(:last-child) {
+      margin-right: 2rem;
+    }
+  }
 }
 
 input:-webkit-autofill,

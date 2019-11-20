@@ -37,7 +37,7 @@ class Register extends Component {
     })
   }
   render() {
-    const notImplementedAlert = this.state.notImplementedAlert && (
+    const notImplementedAlert = this.state.notImplementedAlert || (
       <Alert
         type="warning"
         msg="This feature not implemented yet!"
@@ -51,7 +51,7 @@ class Register extends Component {
         <div className="card">
           <h2 className="card__title">Create an account</h2>
           <form onSubmit={this.handleSubmit} className="signup">
-            <div className="signup__row">
+            <div className="form__row">
               <div className="form__group">
                 <input
                   type="text"

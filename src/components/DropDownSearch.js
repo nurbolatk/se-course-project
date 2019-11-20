@@ -1,9 +1,10 @@
-import React, { Component } from "react"
-import Downshift from "downshift"
+import React, { Component } from 'react'
+import Downshift from 'downshift'
+import moment from 'moment'
 
 class DropDownSearch extends Component {
   state = {
-    items: this.props.items
+    items: this.props.items,
   }
   handleChange = e => {
     const { value } = e.target
@@ -17,13 +18,13 @@ class DropDownSearch extends Component {
     this.setState({ items: results })
   }
   selectItem = item => {
-    console.log(item)
+    this.props.selectItem(item)
   }
   render() {
     const { placeholder } = this.props
     return (
       <Downshift
-        itemToString={item => (item === null ? "" : item.label)}
+        itemToString={item => (item === null ? '' : item.label)}
         onChange={this.selectItem}
       >
         {({
@@ -31,17 +32,17 @@ class DropDownSearch extends Component {
           getItemProps,
           isOpen,
           inputValue,
-          highlightedIndex
+          highlightedIndex,
         }) => (
           <div className="dropdown-search-box">
             <input
               {...getInputProps({
-                type: "search",
+                type: 'search',
                 className: `dropdown-search ${
-                  isOpen ? "dropdown-search--open" : ""
+                  isOpen ? 'dropdown-search--open' : ''
                 }`,
                 placeholder: placeholder,
-                onChange: this.handleChange
+                onChange: this.handleChange,
               })}
             />
             {isOpen && (
@@ -56,9 +57,9 @@ class DropDownSearch extends Component {
                         key: item.value,
                         className: `dropdown-search-result ${
                           index === highlightedIndex
-                            ? "dropdown-search-result--highlighted"
-                            : ""
-                        }`
+                            ? 'dropdown-search-result--highlighted'
+                            : ''
+                        }`,
                       })}
                     >
                       {item.label}

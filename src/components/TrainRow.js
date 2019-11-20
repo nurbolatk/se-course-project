@@ -1,6 +1,8 @@
 import React from 'react'
 import moment from 'moment'
-import { Link } from 'react-router-dom'
+import { withRouter } from 'react-router-dom'
+import { connect } from 'react-redux'
+import { pickRouteAction } from '../actions/routeActions'
 import { formatDuration } from '../utils/dateUtils'
 
 const TrainRow = props => {
@@ -26,45 +28,46 @@ const TrainRow = props => {
     return accumulator
   }, [])
   return (
-    <div className='d-flex train-result text-center'>
-      <div className='main-info mr-3 flex-grow-1'>
-        <div className='row align-items-center'>
-          <div className='col'>
-            <div className='departure d-flex flex-column  align-items-center'>
-              <p className='station'>{origin.Name}</p>
-              <p className='time display-4'>{depTime}</p>
-              <p className='date'>{depDate}</p>
-            </div>
-          </div>
-          <div className='col'>
-            <p className='train-id'>Train #{route.TrainId}</p>
-            <p className='duration-label text-muted'>duration</p>
-            <p className='duration'>{duration}</p>
-          </div>
-          <div className='col'>
-            <div className='arrival d-flex flex-column  align-items-center'>
-              <p className='station'>{destination.Name}</p>
-              <p className='time display-4'>{arrTime}</p>
-              <p className='date'>{arrDate}</p>
-            </div>
-          </div>
+    <div className="train-row">
+      <div className="main-info">
+        <div className="departure">
+          <p className="station">{origin.Name}</p>
+          <p className="time">{depTime}</p>
+          <p className="date">{depDate}</p>
+        </div>
+
+        <div className="middle-is-missing">
+          <p className="train-id">Train #{route.TrainId}</p>
+          <p className="duration-label text-muted">duration</p>
+          <p className="duration">{duration}</p>
+        </div>
+
+        <div className="arrival">
+          <p className="station">{destination.Name}</p>
+          <p className="time">{arrTime}</p>
+          <p className="date">{arrDate}</p>
         </div>
       </div>
-      <div className='list-group list-group-horizontal '>
+      <div className="carriages-list ">
         {wagons.map((w, i) => (
-          <Link
+          <button
             to={`/view-train/${route.RouteId}`}
-            href='#'
             key={i}
-            className='wagon list-group-item d-flex flex-column justify-content-center'>
-            <h6 className='type mb-1'>{w.Type}</h6>
-            <div className='price'>10 699 KZT</div>
-            <div className='available-seats'>{w.AvailableSeats} seats</div>
-          </Link>
+            onClick={e => props.pickRoute(route, props.history)}
+            className="btn btn--link wagon"
+          >
+            <h6 className="type mb-1">{w.Type}</h6>
+            <div className="price">10 699 KZT</div>
+            <div className="available-seats">{w.AvailableSeats} seats</div>
+          </button>
         ))}
       </div>
     </div>
   )
 }
+const mapDispatchToProps = dispatch => ({
+  pickRoute: (routeData, history) =>
+    dispatch(pickRouteAction(routeData, history)),
+})
 
-export default TrainRow
+export default withRouter(connect(null, mapDispatchToProps)(TrainRow))

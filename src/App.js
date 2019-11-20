@@ -1,40 +1,41 @@
-import React from "react";
+import React from 'react'
 import {
   BrowserRouter as Router,
   Switch,
   Route,
-  Redirect
-} from "react-router-dom";
-import { connect } from "react-redux";
-import Home from "./components/Home";
-import Navbar from "./components/Navbar";
-import Register from "./components/Register";
-import Signin from "./components/Signin";
-import AdminPanel from "./components/AdminPanel";
-import AddRoute from "./components/AddRoute";
-import Routes from "./components/Routes";
-import RoutesResult from "./components/RoutesResult";
-import TrainView from "./components/TrainView";
-import AddPassenger from "./components/AddPassenger";
+  Redirect,
+} from 'react-router-dom'
+import { connect } from 'react-redux'
+import Home from './components/Home'
+import Navbar from './components/Navbar'
+import Register from './components/Register'
+import Signin from './components/Signin'
+import AdminPanel from './components/AdminPanel'
+import AddRoute from './components/AddRoute'
+import Routes from './components/Routes'
+import RoutesResult from './components/RoutesResult'
+import TrainView from './components/TrainView'
+import AddPassenger from './components/AddPassenger'
+import AddStation from './components/AddStation'
 
 const PrivateRoute = ({ component: Component, auth, ...rest }) => (
   <Route
     {...rest}
     render={props => {
-      if (auth.user) return <Component {...props} />;
+      if (auth.user) return <Component {...props} />
       else {
-        alert("Please log in!");
+        alert('Please log in!')
         return (
           <Redirect
             to={{
-              pathname: "/sign-in"
+              pathname: '/sign-in',
             }}
           />
-        );
+        )
       }
     }}
   />
-);
+)
 
 const App = props => {
   return (
@@ -58,10 +59,13 @@ const App = props => {
             <Route path="/add-route">
               <AddRoute />
             </Route>
+            <Route path="/add-station">
+              <AddStation />
+            </Route>
             <Route path="/search-results">
               <RoutesResult />
             </Route>
-            <Route path="/view-train/:route_id">
+            <Route path="/view-train">
               <TrainView />
             </Route>
             <PrivateRoute
@@ -76,11 +80,11 @@ const App = props => {
         </main>
       </>
     </Router>
-  );
-};
+  )
+}
 
 const mapStateToProps = state => {
-  return { auth: state.auth };
-};
+  return { auth: state.auth }
+}
 
-export default connect(mapStateToProps)(App);
+export default connect(mapStateToProps)(App)

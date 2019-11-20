@@ -6,7 +6,14 @@
 @import 'pages/home';
 @import 'pages/signin';
 @import 'pages/signup';
+@import 'pages/add-station';
+@import 'pages/add-route';
+@import 'pages/search-routes';
+@import 'pages/wagon-view';
+@import 'pages/train-view';
+@import 'pages/add-passenger';
 
+@import 'components/alert';
 @import 'components/navbar';
 @import 'components/header';
 @import 'components/form';

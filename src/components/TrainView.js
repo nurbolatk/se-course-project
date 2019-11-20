@@ -64,39 +64,35 @@ class TrainView extends Component {
     this.props.saveSeats(this.state.seats, this.props.history)
   }
   render() {
-    const route = this.props.routes.find(r => '' + r.RouteId === this.props.match.params.route_id)
-    console.log(this.props.routes)
+    const route = this.props.route
     console.log('found', route)
     return (
-      <div className='container mt-5'>
-        <div className=''>
-          <div className='card mb-4'>
-            <div className='card-body d-flex justify-content-between '>
-              <h4 className='card-title d-inline-block '>Pick wagon(s) and seat(s)</h4>
-              <button
-                className='btn btn-primary'
-                onClick={this.saveSeats}
-                disabled={Object.keys(this.state.seats).length === 0}>
-                Next
-              </button>
-            </div>
+      <div className="train-view">
+        <div className="card mb-2">
+          <div className="train-view__header">
+            <h2>Pick wagon(s) and seat(s)</h2>
+            <button
+              className="btn btn--primary btn--side"
+              onClick={this.saveSeats}
+              disabled={Object.keys(this.state.seats).length === 0}
+            >
+              Next
+            </button>
           </div>
-          {route.carriages.map((w, i) => (
-            <div className='card mb-4' key={i}>
-              <div className='card-body'>
-                <h5 className='card-title'>
-                  Wagon #{i + 1}: {w.Type}
-                </h5>
-                <WagonView
-                  wagon={w}
-                  selectSeat={this.selectSeat}
-                  deselectSeat={this.deselectSeat}
-                  wagonNum={i}
-                />
-              </div>
-            </div>
-          ))}
         </div>
+        {route.carriages.map((w, i) => (
+          <div className="card mb-2" key={i}>
+            <h4 className="mb-1">
+              Wagon #{w.CarriageId}: {w.Type}
+            </h4>
+            <WagonView
+              wagon={w}
+              selectSeat={this.selectSeat}
+              deselectSeat={this.deselectSeat}
+              wagonNum={i}
+            />
+          </div>
+        ))}
       </div>
     )
   }
@@ -104,7 +100,8 @@ class TrainView extends Component {
 
 const mapStateToProps = state => {
   return {
-    routes: state.route.routes,
+    route: state.route.route,
+    seats: state.seat.seats,
   }
 }
 
@@ -113,8 +110,5 @@ const mapDispatchToProps = dispatch => ({
 })
 
 export default withRouter(
-  connect(
-    mapStateToProps,
-    mapDispatchToProps
-  )(TrainView)
+  connect(mapStateToProps, mapDispatchToProps)(TrainView)
 )
