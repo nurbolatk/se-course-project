@@ -2,6 +2,8 @@ import { REQUEST_SIGNIN, SIGNIN, LOGOUT } from '.'
 import Axios from 'axios'
 import { domain } from '../url'
 import { join } from 'path'
+import Cookies from 'js-cookie'
+import setAuthToken from '../utils/axiosAuthHeader'
 
 export const signInAction = (userCredentials, history) => {
   return (dispatch, getState) => {
@@ -11,14 +13,19 @@ export const signInAction = (userCredentials, history) => {
     const headers = {
       'Content-Type': 'application/json',
     }
-    Axios.post(domain + '/login?username=qwer@mail.ru&password=qwer')
+    Axios.post(domain + '/authenticate', json, { headers })
       .then(res => {
+        console.log('sign in success', res.data)
+        Cookies.set('token', token)
+        const token = Cookies.get('token') ? Cookies.get('token') : null
+        setAuthToken(token)
+        //to set a cookie
         dispatch({ type: SIGNIN, data: res.data })
         history.push('/')
       })
       .catch(e => {
-        console.log('Error when sign in', e)
-        dispatch({ type: SIGNIN })
+        console.log('Error when sign in', e.response)
+        // dispatch({ type: SIGNIN })
       })
     // setTimeout(() => {
     //   const data = {

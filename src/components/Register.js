@@ -55,7 +55,7 @@ class Register extends Component {
               <div className="form__group">
                 <input
                   type="text"
-                  class="form__input"
+                  className="form__input"
                   id="firstName"
                   name="firstName"
                   value={this.state.firstName}
@@ -66,7 +66,7 @@ class Register extends Component {
               <div className="form__group">
                 <input
                   type="text"
-                  class="form__input"
+                  className="form__input"
                   id="lastName"
                   name="lastName"
                   value={this.state.lastName}
@@ -75,30 +75,30 @@ class Register extends Component {
                 />
               </div>
             </div>
-            <div class="form__group">
+            <div className="form__group">
               <input
                 type="email"
                 name="email"
                 value={this.state.email}
-                class="form__input"
+                className="form__input"
                 id="inputEmail4"
                 placeholder="Email"
                 onChange={this.handleChange}
               />
             </div>
-            <div class="form__group">
+            <div className="form__group">
               <input
                 type="password"
                 name="password"
                 value={this.state.password}
-                class="form__input"
+                className="form__input"
                 id="inputPassword4"
                 placeholder="Password"
                 onChange={this.handleChange}
               />
             </div>
 
-            <button type="submit" class="btn btn--primary mb-3">
+            <button type="submit" className="btn btn--primary mb-3">
               Sign up
             </button>
             <Link to="/sign-in" className="signin__link">

@@ -1,57 +1,10 @@
 import React, { Component } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, withRouter } from 'react-router-dom'
 import Alert from './Alert'
 import { connect } from 'react-redux'
 import AddPassangerForm from './AddPassangerForm'
 import Spinner from './Spinner'
 import { bookTicketAction } from '../actions/ticketAction'
-
-// {
-//   "RouteId": 1,
-//   "ArrStationId": 1,
-//   "DepStationId": 2,
-//   "passengers":
-//     [
-//       {
-//         "SSN": 23,
-//         "bookInfo":{
-//           "CarriageId": 1,
-//           "SeatNum": 16,
-//            "Price": 12500,
-//           "Adult": 1
-//         },
-
-//         "passengerInfo":{
-//           "Fname": "Edward",
-//           "Lname": "Snowden",
-//           "PhoneNum": 1122,
-//           "Email": "esnow@nu.edu.kz",
-//           "Birthday": "1981-03-22"
-//         }
-
-//       },
-
-//       {
-//         "SSN": 152,
-//         "bookInfo":{
-//           "CarriageId": 5,
-//           "SeatNum": 88,
-//            "Price": 12500,
-//           "Adult": 1
-//         },
-
-//         "passengerInfo":{
-//           "Fname": "Vasili",
-//           "Lname": "Zaycev",
-//           "PhoneNum": 3475,
-//           "Email": "esnow@nu.edu.kz",
-//           "Birthday": "1981-03-22"
-//         }
-
-//       }
-
-//     ]
-// }
 
 class AddPassenger extends Component {
   constructor(props) {
@@ -66,7 +19,7 @@ class AddPassenger extends Component {
           passangers.push({
             SSN: '',
             bookInfo: {
-              CarriageId: wagon,
+              CarriageId: parseInt(wagon),
               SeatNum: seat,
               price: 7777,
               Adult: 1,
@@ -89,15 +42,25 @@ class AddPassenger extends Component {
 
   handleSubmit = e => {
     e.preventDefault()
+    const { route, user } = this.props
+    const request = {
+      RouteId: route.RouteId,
+      ArrStationId: route.stations[0].StationId,
+      DepStationId: route.stations[route.stations.length - 1].StationId,
+      // UserId: user.userId,
+      UserId: 1,
+      passengers: this.state.passangers,
+    }
+    console.log(request)
+    this.props.bookTicket(request, this.props.history)
   }
 
   handleChange = (e, ind) => {
     const { name, value } = e.target
-    console.log(name, value)
     this.setState(state => {
       const npsgs = [...state.passangers]
       if (name === 'SSN') {
-        npsgs[ind][name] = value
+        npsgs[ind][name] = parseInt(value)
       } else {
         npsgs[ind].passengerInfo[name] = value
       }
@@ -130,13 +93,16 @@ class AddPassenger extends Component {
         })
       }
     }
+    if (Object.keys(this.props.seats).length === 0) {
+      return <Alert msg="No seats selected!" />
+    }
     return (
       <div className="add-passenger">
         <form onSubmit={this.handleSubmit}>
           {form}
           <button
             type="submit"
-            class="btn btn--primary mb-4"
+            className="btn btn--primary mb-4"
             disabled={isLoading}
           >
             {isLoading ? <Spinner type="small" /> : 'Book Tickets'}
@@ -151,12 +117,16 @@ const mapStateToProps = state => {
   return {
     seats: state.seat.seats,
     ticket: state.ticket,
+    route: state.route.route,
+    user: state.auth.user,
   }
 }
 
 const mapDispathToProps = dispatch => ({
-  signIn: (credentials, history) =>
+  bookTicket: (credentials, history) =>
     dispatch(bookTicketAction(credentials, history)),
 })
 
-export default connect(mapStateToProps, mapDispathToProps)(AddPassenger)
+export default withRouter(
+  connect(mapStateToProps, mapDispathToProps)(AddPassenger)
+)

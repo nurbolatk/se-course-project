@@ -12,7 +12,7 @@ class AddPassangerForm extends Component {
           <div>
             <div className="form__group">
               <input
-                type="text"
+                type="number"
                 name="SSN"
                 value={this.props.psg.SSN}
                 className="form__input"

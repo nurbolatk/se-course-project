@@ -17,12 +17,15 @@ import RoutesResult from './components/RoutesResult'
 import TrainView from './components/TrainView'
 import AddPassenger from './components/AddPassenger'
 import AddStation from './components/AddStation'
+import OrderHistory from './components/OrderHistory'
+import OrderView from './components/OrderView'
 
 const PrivateRoute = ({ component: Component, auth, ...rest }) => (
   <Route
     {...rest}
     render={props => {
-      if (auth.user) return <Component {...props} />
+      // if (auth.user) return <Component {...props} />
+      if (true) return <Component {...props} />
       else {
         alert('Please log in!')
         return (
@@ -73,6 +76,19 @@ const App = props => {
               component={AddPassenger}
               auth={props.auth}
             />
+            <PrivateRoute
+              path="/order-history"
+              component={OrderHistory}
+              auth={props.auth}
+            />
+            {/* <PrivateRoute
+              path="/order/:orderId"
+              component={OrderView}
+              auth={props.auth}
+            /> */}
+            <Route path="/order/:orderId">
+              <OrderView />
+            </Route>
             <Route exact path="/">
               <Home />
             </Route>

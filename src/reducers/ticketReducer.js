@@ -1,4 +1,4 @@
-import { START_LOADING_TICKETS, BOOK_TICKETS } from '../actions'
+import { START_LOADING_TICKETS, BOOK_TICKETS, STOP_LOADING } from '../actions'
 
 const initialState = {
   isLoading: false,
@@ -17,6 +17,11 @@ const ticketReducer = (state = initialState, action) => {
         ...state,
         isLoading: false,
         isSuccess: true,
+      }
+    case STOP_LOADING:
+      return {
+        ...state,
+        isLoading: false,
       }
     default:
       return state
