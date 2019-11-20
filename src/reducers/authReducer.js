@@ -2,7 +2,7 @@ import { SIGNIN, LOGOUT, REQUEST_SIGNIN } from '../actions'
 
 const initial = {
   user: {
-    email: 'not-logged@in.haha',
+    email: 'allo@bratan'
   },
   isFetching: false,
 }
@@ -22,7 +22,8 @@ const authReducer = (state = initial, action) => {
           user: action.data,
           isFetching: false,
         }
-      } else {
+      } 
+      else {
         return {
           ...state,
           user: {

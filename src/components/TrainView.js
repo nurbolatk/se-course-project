@@ -9,7 +9,7 @@ class TrainView extends Component {
     super(props)
 
     this.state = {
-      seats: {},
+      seats: this.props.seats,
       yaVsegdaPomnu: 'o glavnom',
     }
   }
@@ -90,6 +90,7 @@ class TrainView extends Component {
               selectSeat={this.selectSeat}
               deselectSeat={this.deselectSeat}
               wagonNum={i}
+              seats={this.props.seats[w.CarriageId]}
             />
           </div>
         ))}

@@ -14,19 +14,22 @@ class WagonView extends Component {
     }
   }
   render() {
-    const { wagon, wagonNum, selectSeat } = this.props
+    const { wagon, wagonNum, selectSeat, seats } = this.props
     const table = []
     switch (wagon.Type.toLowerCase()) {
       case 'coupe':
         const top = []
         const bot = []
         for (let i = 0; i < wagon.AvailableSeats; i += 2) {
+          const booked = wagon.BookedSeats.some(seat => seat === i)
+          const chosen = seats && seats.some(seat => seat === (i+1))
           top.push(
             <td>
               <button
                 type="button"
                 onClick={this.toggleSeat}
-                className="btn btn--secondary--outline"
+                className={`btn btn--${ chosen ? 'primary' :  booked ? 'secondary' : 'secondary--outline'}`}
+                  disabled={booked}
               >
                 {i + 1}
               </button>
@@ -34,12 +37,15 @@ class WagonView extends Component {
           )
         }
         for (let i = 1; i < wagon.AvailableSeats; i += 2) {
+          const booked = wagon.BookedSeats.some(seat => seat === i)
+          const chosen = seats && seats.some(seat => seat === (i+1))
           bot.push(
             <td>
               <button
                 type="button"
                 onClick={this.toggleSeat}
-                className="btn btn--secondary--outline"
+                className={`btn btn--${ chosen ? 'primary' :  booked ? 'secondary' : 'secondary--outline'}`}
+                  disabled={booked}
               >
                 {i + 1}
               </button>
@@ -65,12 +71,15 @@ class WagonView extends Component {
         const botP = []
         const side = []
         for (let i = 0; i < wagon.AvailableSeats - sideNum; i += 2) {
+          const booked = wagon.BookedSeats.some(seat => seat === i)
+          const chosen = seats && seats.some(seat => seat === (i+1))
           topP.push(
             <td>
               <button
                 type="button"
                 onClick={this.toggleSeat}
-                className="btn btn--secondary--outline"
+                className={`btn btn--${ chosen ? 'primary' :  booked ? 'secondary' : 'secondary--outline'}`}
+                  disabled={booked}
               >
                 {i + 1}
               </button>
@@ -78,12 +87,15 @@ class WagonView extends Component {
           )
         }
         for (let i = 1; i < wagon.AvailableSeats - sideNum; i += 2) {
+          const booked = wagon.BookedSeats.some(seat => seat === i)
+          const chosen = seats && seats.some(seat => seat === (i+1))
           botP.push(
             <td>
               <button
                 type="button"
                 onClick={this.toggleSeat}
-                className="btn btn--secondary--outline"
+                className={`btn btn--${ chosen ? 'primary' :  booked ? 'secondary' : 'secondary--outline'}`}
+                disabled={booked}
               >
                 {i + 1}
               </button>
@@ -95,12 +107,15 @@ class WagonView extends Component {
           i < wagon.AvailableSeats;
           i++
         ) {
+          const booked = wagon.BookedSeats.some(seat => seat === i)
+          const chosen = seats && seats.some(seat => seat === (i+1))
           side.push(
             <td>
               <button
                 type="button"
                 onClick={this.toggleSeat}
-                className="btn btn--secondary--outline"
+                className={`btn btn--${ chosen ? 'primary' :  booked ? 'secondary' : 'secondary--outline'}`}
+                disabled={booked}
               >
                 {i + 1}
               </button>
@@ -127,6 +142,31 @@ class WagonView extends Component {
           </tr>
         )
         break
+        case 'lux' :
+          const botL = []
+          for (let i = 0; i < wagon.AvailableSeats; i++) {
+            const booked = wagon.BookedSeats.some(seat => seat === i)
+            const chosen = seats && seats.some(seat => seat === (i+1))
+            botL.push(
+              <td>
+                <button
+                  type="button"
+                  onClick={this.toggleSeat}
+                  className={`btn btn--${ chosen ? 'primary' :  booked ? 'secondary' : 'secondary--outline'}`}
+                  disabled={booked}
+                >
+                  {i + 1}
+                </button>
+              </td>
+            )
+          }
+          table.push(
+            <tr>
+              <th scope="row">bottom</th>
+              {botL}
+            </tr>
+          )
+          break
       default:
         console.log('pwlnah')
         break

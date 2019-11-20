@@ -8,11 +8,10 @@ class Signin extends React.Component {
   state = {
     email: '',
     password: '',
-    remember: false,
   }
   signIn = e => {
     e.preventDefault()
-    const { email, password, remember } = this.state
+    const { email, password } = this.state
     this.props.signIn({ username: email, password }, this.props.history)
   }
   handleChange = e => {

@@ -11,7 +11,7 @@ export const signInAction = (userCredentials, history) => {
     const headers = {
       'Content-Type': 'application/json',
     }
-    Axios.post(domain + '/login', json, { headers, timeout: 2000 })
+    Axios.post(domain + '/login?username=qwer@mail.ru&password=qwer')
       .then(res => {
         dispatch({ type: SIGNIN, data: res.data })
         history.push('/')
