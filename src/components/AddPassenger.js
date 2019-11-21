@@ -28,7 +28,7 @@ class AddPassenger extends Component {
               Fname: '',
               Lname: '',
               PhoneNum: null,
-              Email: '',
+              // Email: '',
               Birthday: '',
             },
           })
@@ -45,8 +45,8 @@ class AddPassenger extends Component {
     const { route, user } = this.props
     const request = {
       RouteId: route.RouteId,
-      ArrStationId: route.stations[0].StationId,
-      DepStationId: route.stations[route.stations.length - 1].StationId,
+      ArrStationId: route.stations[route.stations.length - 1].StationId,
+      DepStationId: route.stations[0].StationId,
       // UserId: user.userId,
       UserId: 1,
       passengers: this.state.passangers,

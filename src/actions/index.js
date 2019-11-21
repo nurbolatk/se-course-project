@@ -1,6 +1,7 @@
 export const SIGNIN = 'SIGNIN'
 export const LOGOUT = 'LOGOUT'
 export const REQUEST_SIGNIN = 'REQUEST_SIGNIN'
+export const STOP_LOADING_SIGNIN = 'STOP_LOADING_SIGNIN'
 
 export const REQUEST_ROUTES = 'REQUEST_ROUTES'
 export const GET_ALL_ROUTES = 'GET_ALL_ROUTES'
@@ -17,4 +18,7 @@ export const STOP_LOADING = 'STOP_LOADING'
 export const START_LOADING_TICKETS = 'START_LOADING_TICKETS'
 
 export const SAVE_SEATS = 'SAVE_SEATS'
+export const CLEAR_SEATS = 'CLEAR_SEATS'
 export const YOU_WILL_BE = 'THE_PURPOSE'
+
+export const ERROR_SIGN_IN = 'ERROR_SIGN_IN'

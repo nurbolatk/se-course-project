@@ -13,6 +13,7 @@ const TrainRow = props => {
   const arrival = moment(destination.ArrTime)
   //display dates
   const duration = formatDuration(arrival.diff(departure, 'minutes'))
+  console.log(duration)
   const depTime = departure.format('HH:mm')
   const arrTime = arrival.format('HH:mm')
   const depDate = departure.format('D MMM YYYY')

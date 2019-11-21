@@ -3,6 +3,7 @@ import { Link, withRouter } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { signInAction } from '../actions/authActions'
 import Spinner from './Spinner'
+import Alert from './Alert'
 
 class Signin extends React.Component {
   state = {
@@ -23,9 +24,11 @@ class Signin extends React.Component {
     })
   }
   render() {
-    const { isFetching } = this.props
+    const { isFetching, error } = this.props
+    const alert = error && <Alert msg={error} />
     return (
       <div className="signin">
+        {alert}
         <div className="card">
           <h2 className="card__title">Sign in</h2>
           <form onSubmit={this.signIn}>
@@ -74,6 +77,7 @@ class Signin extends React.Component {
 
 const mapStateToProps = state => ({
   isFetching: state.auth.isFetching,
+  error: state.error.auth,
 })
 
 const mapDispathToProps = dispatch => ({

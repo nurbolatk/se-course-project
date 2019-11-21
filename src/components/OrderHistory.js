@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
+import Axios from 'axios'
+import { domain } from '../url'
 /*{
   "RouteId": 1,
   "ArrStationId": 1,
@@ -73,6 +75,16 @@ import { Link } from 'react-router-dom'
 ]
 */
 class OrderHistory extends Component {
+  componentDidMount() {
+    Axios.get(domain + '/book/1')
+      .then(r => {
+        console.log(r.data)
+      })
+      .catch(e => {
+        console.log(e)
+        console.log(e.response)
+      })
+  }
   render() {
     return (
       <div className="order-history">

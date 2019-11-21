@@ -5,13 +5,15 @@ import { logOutAction } from '../actions/authActions'
 
 const Navbar = props => {
   const { user } = props.auth
-  const adminLinks = user && (
-    <li className="navbar__item">
-      <Link className="nav-navbar__link" to="/administration">
-        Admin panel
-      </Link>
-    </li>
-  )
+  const adminLinks = user &&
+    user.roles &&
+    user.roles.some(role => role === 'ROLE_MANAGER') && (
+      <div className="navbar__item">
+        <Link className="nav-navbar__link" to="/administration">
+          Admin panel
+        </Link>
+      </div>
+    )
   return (
     <>
       <header className="header">
@@ -23,6 +25,7 @@ const Navbar = props => {
         <nav className="navbar">
           {user ? (
             <>
+              {adminLinks}
               <div className="navbar__item ">
                 <Link className="navbar__link" to="/add-station">
                   Add Station

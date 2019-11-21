@@ -1,6 +1,6 @@
 import Axios from 'axios'
 import { domain } from '../url'
-import { START_LOADING_TICKETS, STOP_LOADING } from '.'
+import { START_LOADING_TICKETS, STOP_LOADING, CLEAR_SEATS } from '.'
 
 export const bookTicketAction = (bookData, history) => {
   return dispatch => {
@@ -15,7 +15,9 @@ export const bookTicketAction = (bookData, history) => {
     Axios.post(domain + '/book', json, { headers })
       .then(r => {
         dispatch({ type: STOP_LOADING })
-        console.log(r)
+        dispatch({
+          type: CLEAR_SEATS,
+        })
         history.push('/order-history/1')
       })
       .catch(e => {

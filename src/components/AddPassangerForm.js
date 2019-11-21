@@ -48,7 +48,7 @@ class AddPassangerForm extends Component {
                 />
               </div>
             </div>
-            <div class="form__group">
+            {/* <div class="form__group">
               <input
                 type="email"
                 name="Email"
@@ -58,7 +58,7 @@ class AddPassangerForm extends Component {
                 placeholder="Email"
                 onChange={e => handleChange(e, ind)}
               />
-            </div>
+            </div> */}
             <div className="form__group">
               <label htmlFor="PhoneNum">
                 Enter a telephone number (in the form xxxx-xxx-xx-xx):

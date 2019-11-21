@@ -1,4 +1,4 @@
-import { SAVE_SEATS } from '.'
+import { SAVE_SEATS, CLEAR_SEATS } from '.'
 
 export const saveSeatsAction = (seats, history) => {
   return dispatch => {

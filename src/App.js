@@ -24,8 +24,7 @@ const PrivateRoute = ({ component: Component, auth, ...rest }) => (
   <Route
     {...rest}
     render={props => {
-      // if (auth.user) return <Component {...props} />
-      if (true) return <Component {...props} />
+      if (auth.user) return <Component {...props} />
       else {
         alert('Please log in!')
         return (

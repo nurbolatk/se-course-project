@@ -1,4 +1,4 @@
-import { SIGNIN, LOGOUT, REQUEST_SIGNIN } from '../actions'
+import { SIGNIN, LOGOUT, REQUEST_SIGNIN, STOP_LOADING_SIGNIN } from '../actions'
 
 const initial = {
   user: null,
@@ -17,21 +17,20 @@ const authReducer = (state = initial, action) => {
       if (action.data) {
         return {
           ...state,
-          user: action.data,
+          user: {
+            email: action.data.sub,
+            roles: action.data.roles,
+          },
           isFetching: false,
         }
       }
-    // else {
-    //   return {
-    //     ...state,
-    //     user: {
-    //       email: 'not@logged.haha',
-    //     },
-    //     isFetching: false,
-    //   }
-    // }
+    case STOP_LOADING_SIGNIN:
+      return {
+        ...state,
+        isFetching: false,
+      }
     case LOGOUT:
-      return {}
+      return { user: null, isFetching: false }
     default:
       return state
   }

@@ -20,9 +20,9 @@ class WagonView extends Component {
       case 'coupe':
         const top = []
         const bot = []
-        for (let i = 0; i < wagon.AvailableSeats; i += 2) {
+        for (let i = 1; i < wagon.AvailableSeats + 1; i += 2) {
           const booked = wagon.BookedSeats.some(seat => seat === i)
-          const chosen = seats && seats.some(seat => seat === i + 1)
+          const chosen = seats && seats.some(seat => seat === i)
           top.push(
             <td>
               <button
@@ -37,14 +37,14 @@ class WagonView extends Component {
                 }`}
                 disabled={booked}
               >
-                {i + 1}
+                {i}
               </button>
             </td>
           )
         }
-        for (let i = 1; i < wagon.AvailableSeats; i += 2) {
+        for (let i = 2; i < wagon.AvailableSeats + 1; i += 2) {
           const booked = wagon.BookedSeats.some(seat => seat === i)
-          const chosen = seats && seats.some(seat => seat === i + 1)
+          const chosen = seats && seats.some(seat => seat === i)
           bot.push(
             <td>
               <button
@@ -59,7 +59,7 @@ class WagonView extends Component {
                 }`}
                 disabled={booked}
               >
-                {i + 1}
+                {i}
               </button>
             </td>
           )
@@ -78,13 +78,13 @@ class WagonView extends Component {
         )
         break
       case 'platzcard':
-        const sideNum = Math.floor(wagon.AvailableSeats / 3)
+        const sideNum = Math.floor((wagon.AvailableSeats + 1) / 3)
         const topP = []
         const botP = []
         const side = []
-        for (let i = 0; i < wagon.AvailableSeats - sideNum; i += 2) {
+        for (let i = 1; i < wagon.AvailableSeats - sideNum + 1; i += 2) {
           const booked = wagon.BookedSeats.some(seat => seat === i)
-          const chosen = seats && seats.some(seat => seat === i + 1)
+          const chosen = seats && seats.some(seat => seat === i)
           topP.push(
             <td>
               <button
@@ -99,14 +99,14 @@ class WagonView extends Component {
                 }`}
                 disabled={booked}
               >
-                {i + 1}
+                {i}
               </button>
             </td>
           )
         }
-        for (let i = 1; i < wagon.AvailableSeats - sideNum; i += 2) {
+        for (let i = 2; i < wagon.AvailableSeats - sideNum + 1; i += 2) {
           const booked = wagon.BookedSeats.some(seat => seat === i)
-          const chosen = seats && seats.some(seat => seat === i + 1)
+          const chosen = seats && seats.some(seat => seat === i)
           botP.push(
             <td>
               <button
@@ -121,18 +121,18 @@ class WagonView extends Component {
                 }`}
                 disabled={booked}
               >
-                {i + 1}
+                {i}
               </button>
             </td>
           )
         }
         for (
-          let i = wagon.AvailableSeats - sideNum;
-          i < wagon.AvailableSeats;
+          let i = wagon.AvailableSeats - sideNum + 1;
+          i < wagon.AvailableSeats + 1;
           i++
         ) {
           const booked = wagon.BookedSeats.some(seat => seat === i)
-          const chosen = seats && seats.some(seat => seat === i + 1)
+          const chosen = seats && seats.some(seat => seat === i)
           side.push(
             <td>
               <button
@@ -147,7 +147,7 @@ class WagonView extends Component {
                 }`}
                 disabled={booked}
               >
-                {i + 1}
+                {i}
               </button>
             </td>
           )
@@ -174,9 +174,9 @@ class WagonView extends Component {
         break
       case 'lux':
         const botL = []
-        for (let i = 0; i < wagon.AvailableSeats; i++) {
+        for (let i = 1; i < wagon.AvailableSeats + 1; i++) {
           const booked = wagon.BookedSeats.some(seat => seat === i)
-          const chosen = seats && seats.some(seat => seat === i + 1)
+          const chosen = seats && seats.some(seat => seat === i)
           botL.push(
             <td>
               <button
@@ -191,7 +191,7 @@ class WagonView extends Component {
                 }`}
                 disabled={booked}
               >
-                {i + 1}
+                {i}
               </button>
             </td>
           )

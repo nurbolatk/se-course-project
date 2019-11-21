@@ -1,9 +1,16 @@
-import { REQUEST_SIGNIN, SIGNIN, LOGOUT } from '.'
+import {
+  REQUEST_SIGNIN,
+  SIGNIN,
+  LOGOUT,
+  ERROR_SIGN_IN,
+  STOP_LOADING_SIGNIN,
+} from '.'
 import Axios from 'axios'
 import { domain } from '../url'
 import { join } from 'path'
 import Cookies from 'js-cookie'
 import setAuthToken from '../utils/axiosAuthHeader'
+import jwt_decode from 'jwt-decode'
 
 export const signInAction = (userCredentials, history) => {
   return (dispatch, getState) => {
@@ -15,35 +22,30 @@ export const signInAction = (userCredentials, history) => {
     }
     Axios.post(domain + '/authenticate', json, { headers })
       .then(res => {
-        console.log('sign in success', res.data)
+        console.log('sign in success', res.data.token)
+        const token = res.data.token
         Cookies.set('token', token)
-        const token = Cookies.get('token') ? Cookies.get('token') : null
         setAuthToken(token)
-        //to set a cookie
-        dispatch({ type: SIGNIN, data: res.data })
+        const decoded = jwt_decode(token)
+        console.log('user logged data', decoded)
+        dispatch({ type: SIGNIN, data: decoded })
         history.push('/')
       })
       .catch(e => {
         console.log('Error when sign in', e.response)
-        // dispatch({ type: SIGNIN })
+        const msg = e.response.data
+          ? e.response.data.message
+          : 'Wrong email or password'
+        dispatch({ type: STOP_LOADING_SIGNIN })
+        dispatch({ type: ERROR_SIGN_IN, data: { msg } })
       })
-    // setTimeout(() => {
-    //   const data = {
-    //     email: userCredentials.email,
-    //     firstName: 'Oleg',
-    //     lastName: 'Ivanov',
-    //     roles: ['ADMIN'],
-    //     id: 1,
-    //   }
-    //   dispatch({ type: SIGNIN, data: data })
-    //   history.push('/')
-    // }, 600)
   }
 }
 
 export const logOutAction = dispatch => {
   return {
     logOut: history => {
+      Cookies.remove('token')
       dispatch({ type: LOGOUT })
       history.push('/')
     },
