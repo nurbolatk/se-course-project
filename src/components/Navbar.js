@@ -37,7 +37,7 @@ const Navbar = props => {
                 </Link>
               </div>
               <div className="navbar__item ">
-                <Link className="navbar__link" to="/sign-in">
+                <Link className="navbar__link" to="/orders">
                   {user.email}
                 </Link>
               </div>

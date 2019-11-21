@@ -215,6 +215,17 @@ a:hover, a:active {
   justify-content: space-between;
 }
 
+.orders-list {
+  width: 40vw;
+}
+.orders-list__item {
+  padding: 1rem 3rem;
+}
+
+.order-view {
+  width: 80vw;
+}
+
 .add-passenger {
   width: 70vw;
   margin-top: 4rem;

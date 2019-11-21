@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
-import Axios from 'axios'
-import { domain } from '../url'
+import { connect } from 'react-redux'
+import { loadOrdersAction } from '../actions/orderActions'
+import Spinner from './Spinner'
 /*{
   "RouteId": 1,
   "ArrStationId": 1,
@@ -76,28 +77,44 @@ import { domain } from '../url'
 */
 class OrderHistory extends Component {
   componentDidMount() {
-    Axios.get(domain + '/book/1')
-      .then(r => {
-        console.log(r.data)
-      })
-      .catch(e => {
-        console.log(e)
-        console.log(e.response)
-      })
+    this.props.loadOrders(this.props.auth.user.UserId, this.props.history)
   }
+
   render() {
+    const { order } = this.props
+    console.log(order)
     return (
       <div className="order-history">
         <div className="card">
           <h2 className="card__title">Order history</h2>
-          <div className="orders_list">
-            <Link to="/order/1">Order #3301931</Link>
-            <Link to="/order/2">Order #3302312</Link>
-          </div>
+          {order.isLoading ? (
+            <Spinner />
+          ) : (
+            <div className="orders-list">
+              {order.orders.map(or => {
+                return (
+                  <div className="orders-list__item">
+                    <Link to={`/orders/${or.id}`}>Order #{or.id}</Link>
+                  </div>
+                )
+              })}
+            </div>
+          )}
         </div>
       </div>
     )
   }
 }
 
-export default OrderHistory
+const mapStateToProps = state => {
+  return {
+    auth: state.auth,
+    order: state.order,
+  }
+}
+
+const mapDispatchToProps = dispatch => ({
+  loadOrders: (UserId, history) => dispatch(loadOrdersAction(UserId, history)),
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(OrderHistory)

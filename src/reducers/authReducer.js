@@ -20,6 +20,7 @@ const authReducer = (state = initial, action) => {
           user: {
             email: action.data.sub,
             roles: action.data.roles,
+            UserId: action.data.userId,
           },
           isFetching: false,
         }

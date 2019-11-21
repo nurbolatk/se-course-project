@@ -19,6 +19,11 @@ export const START_LOADING_TICKETS = 'START_LOADING_TICKETS'
 
 export const SAVE_SEATS = 'SAVE_SEATS'
 export const CLEAR_SEATS = 'CLEAR_SEATS'
+
+export const START_LOADING_ORDER = 'START_LOADING_ORDER'
+export const SAVE_ORDER = 'SAVE_ORDER'
+export const CLEAR_ORDER = 'CLEAR_ORDER'
+
 export const YOU_WILL_BE = 'THE_PURPOSE'
 
 export const ERROR_SIGN_IN = 'ERROR_SIGN_IN'

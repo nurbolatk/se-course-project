@@ -76,7 +76,8 @@ const App = props => {
               auth={props.auth}
             />
             <PrivateRoute
-              path="/order-history"
+              path="/orders"
+              exact
               component={OrderHistory}
               auth={props.auth}
             />
@@ -85,7 +86,7 @@ const App = props => {
               component={OrderView}
               auth={props.auth}
             /> */}
-            <Route path="/order/:orderId">
+            <Route path="/orders/:orderId">
               <OrderView />
             </Route>
             <Route exact path="/">
