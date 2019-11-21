@@ -159,7 +159,8 @@ const routeReducer = (state = initial, action) => {
     case PICK_ROUTE:
       return {
         ...state,
-        route: action.data,
+        route: action.data.route,
+        wType: action.data.wType,
       }
     default:
       return state

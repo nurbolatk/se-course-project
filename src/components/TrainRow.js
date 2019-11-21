@@ -19,13 +19,24 @@ const TrainRow = props => {
   const depDate = departure.format('D MMM YYYY')
   const arrDate = arrival.format('D MMM YYYY')
   // Wagon types
-  const wagons = route.carriages.reduce((accumulator, current) => {
+  console.log(route)
+  const wagons = route.carriages.reduce((accumulator, currentRef) => {
+    const current = { ...currentRef }
+    console.log(currentRef)
     const type = current.Type
     const found = accumulator.find(elem => {
       return elem.Type === type
     })
-    if (found) found.AvailableSeats += current.AvailableSeats
-    else accumulator.push(current)
+    if (found) {
+      console.log('booked')
+
+      console.log('av1')
+      console.log(found.AvailableSeats)
+      found.AvailableSeats += current.AvailableSeats
+      found.AvailableSeats -= current.BookedSeats.length
+      console.log('av2')
+      console.log(found.AvailableSeats)
+    } else accumulator.push(current)
     return accumulator
   }, [])
   return (
@@ -52,9 +63,8 @@ const TrainRow = props => {
       <div className="carriages-list ">
         {wagons.map((w, i) => (
           <button
-            to={`/view-train/${route.RouteId}`}
             key={i}
-            onClick={e => props.pickRoute(route, props.history)}
+            onClick={e => props.pickRoute(route, w.Type, props.history)}
             className="btn btn--link wagon"
           >
             <h6 className="type mb-1">{w.Type}</h6>
@@ -67,8 +77,8 @@ const TrainRow = props => {
   )
 }
 const mapDispatchToProps = dispatch => ({
-  pickRoute: (routeData, history) =>
-    dispatch(pickRouteAction(routeData, history)),
+  pickRoute: (routeData, wType, history) =>
+    dispatch(pickRouteAction(routeData, wType, history)),
 })
 
 export default withRouter(connect(null, mapDispatchToProps)(TrainRow))

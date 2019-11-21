@@ -80,20 +80,22 @@ class TrainView extends Component {
             </button>
           </div>
         </div>
-        {route.carriages.map((w, i) => (
-          <div className="card mb-2" key={i}>
-            <h4 className="mb-1">
-              Wagon #{w.CarriageId}: {w.Type}
-            </h4>
-            <WagonView
-              wagon={w}
-              selectSeat={this.selectSeat}
-              deselectSeat={this.deselectSeat}
-              wagonNum={i}
-              seats={this.props.seats[w.CarriageId]}
-            />
-          </div>
-        ))}
+        {route.carriages
+          .filter(carriage => carriage.Type === this.props.wType)
+          .map((w, i) => (
+            <div className="card mb-2" key={i}>
+              <h4 className="mb-1">
+                Wagon #{w.CarriageId}: {w.Type}
+              </h4>
+              <WagonView
+                wagon={w}
+                selectSeat={this.selectSeat}
+                deselectSeat={this.deselectSeat}
+                wagonNum={i}
+                seats={this.props.seats[w.CarriageId]}
+              />
+            </div>
+          ))}
       </div>
     )
   }
@@ -102,6 +104,7 @@ class TrainView extends Component {
 const mapStateToProps = state => {
   return {
     route: state.route.route,
+    wType: state.route.wType,
     seats: state.seat.seats,
   }
 }

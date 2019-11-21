@@ -20,7 +20,7 @@ class WagonView extends Component {
       case 'coupe':
         const top = []
         const bot = []
-        for (let i = 1; i < wagon.AvailableSeats + 1; i += 2) {
+        for (let i = 1; i < 21; i += 2) {
           const booked = wagon.BookedSeats.some(seat => seat === i)
           const chosen = seats && seats.some(seat => seat === i)
           top.push(
@@ -42,7 +42,7 @@ class WagonView extends Component {
             </td>
           )
         }
-        for (let i = 2; i < wagon.AvailableSeats + 1; i += 2) {
+        for (let i = 2; i < 21; i += 2) {
           const booked = wagon.BookedSeats.some(seat => seat === i)
           const chosen = seats && seats.some(seat => seat === i)
           bot.push(
@@ -78,11 +78,11 @@ class WagonView extends Component {
         )
         break
       case 'platzcard':
-        const sideNum = Math.floor((wagon.AvailableSeats + 1) / 3)
+        const sideNum = 10
         const topP = []
         const botP = []
         const side = []
-        for (let i = 1; i < wagon.AvailableSeats - sideNum + 1; i += 2) {
+        for (let i = 1; i < 21; i += 2) {
           const booked = wagon.BookedSeats.some(seat => seat === i)
           const chosen = seats && seats.some(seat => seat === i)
           topP.push(
@@ -104,7 +104,7 @@ class WagonView extends Component {
             </td>
           )
         }
-        for (let i = 2; i < wagon.AvailableSeats - sideNum + 1; i += 2) {
+        for (let i = 2; i < 21; i += 2) {
           const booked = wagon.BookedSeats.some(seat => seat === i)
           const chosen = seats && seats.some(seat => seat === i)
           botP.push(
@@ -126,11 +126,7 @@ class WagonView extends Component {
             </td>
           )
         }
-        for (
-          let i = wagon.AvailableSeats - sideNum + 1;
-          i < wagon.AvailableSeats + 1;
-          i++
-        ) {
+        for (let i = 21; i < 31; i++) {
           const booked = wagon.BookedSeats.some(seat => seat === i)
           const chosen = seats && seats.some(seat => seat === i)
           side.push(
@@ -174,7 +170,7 @@ class WagonView extends Component {
         break
       case 'lux':
         const botL = []
-        for (let i = 1; i < wagon.AvailableSeats + 1; i++) {
+        for (let i = 1; i < 11; i++) {
           const booked = wagon.BookedSeats.some(seat => seat === i)
           const chosen = seats && seats.some(seat => seat === i)
           botL.push(

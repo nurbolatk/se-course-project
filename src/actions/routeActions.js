@@ -51,7 +51,8 @@ export const searchRoutesAction = (params, history) => {
     // dispatch({})
     const json = JSON.stringify(params)
     const headers = {
-      'Content-Type': 'application/json',
+      'Content-type': 'application/json; charset=utf-8',
+      Accept: 'application/json; charset=utf-8',
     }
     console.log(json)
     // fetch(domain + '/routes/search', {
@@ -72,9 +73,10 @@ export const searchRoutesAction = (params, history) => {
     //     console.log('wtf', data)
     //     dispatch({ type: SEARCH_ROUTES, data: data })
     //     history.push('/search-results')
+
     Axios.post(domain + '/routes/search', json, { headers })
       .then(r => {
-        console.log('response', r)
+        console.log('response', r.data)
         dispatch({ type: SEARCH_ROUTES, data: r.data })
         history.push('/search-results')
       })
@@ -83,12 +85,13 @@ export const searchRoutesAction = (params, history) => {
         // e.response.data.message
       })
     // })
+    // })
   }
 }
 
-export const pickRouteAction = (route, history) => {
+export const pickRouteAction = (route, wType, history) => {
   return dispatch => {
-    dispatch({ type: PICK_ROUTE, data: route })
+    dispatch({ type: PICK_ROUTE, data: { route, wType } })
     history.push(`/view-train`)
   }
 }
