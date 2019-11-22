@@ -1,4 +1,4 @@
-import { ERROR_SIGN_IN } from '../actions'
+import { ERROR_SIGN_IN, REMOVE_ERROR_SIGN_IN } from '../actions'
 
 const initial = {}
 

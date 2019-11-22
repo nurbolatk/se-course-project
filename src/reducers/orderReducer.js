@@ -14,15 +14,12 @@ const orderReducer = (state = initialState, action) => {
       }
     }
     case SAVE_ORDER:
+      const ord = action.data
+      const id = ('' + Date.now()).substring(4)
+      ord.id = id
       return {
         ...state,
-        orders: action.data.map(ord => {
-          const id = ('' + Date.now()).substring(4)
-          return {
-            ...ord,
-            id,
-          }
-        }),
+        orders: [...state.orders, ord],
         isLoading: false,
       }
     case CLEAR_ORDER:

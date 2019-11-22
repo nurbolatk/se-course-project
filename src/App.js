@@ -20,12 +20,26 @@ import AddStation from './components/AddStation'
 import OrderHistory from './components/OrderHistory'
 import OrderView from './components/OrderView'
 
-const PrivateRoute = ({ component: Component, auth, ...rest }) => (
+const PrivateRoute = ({ component: Component, auth, role, ...rest }) => (
   <Route
     {...rest}
     render={props => {
-      if (auth.user) return <Component {...props} />
-      else {
+      if (auth.user) {
+        if (role) {
+          if (auth.user.roles.some(r => r === role)) {
+            return <Component {...props} />
+          }
+          alert("You don't have permissions!")
+          return (
+            <Redirect
+              to={{
+                pathname: '/',
+              }}
+            />
+          )
+        }
+        return <Component {...props} />
+      } else {
         alert('Please log in!')
         return (
           <Redirect
@@ -58,12 +72,24 @@ const App = props => {
             <Route path="/routes">
               <Routes />
             </Route>
-            <Route path="/add-route">
+            <PrivateRoute
+              path="/add-route"
+              component={AddRoute}
+              auth={props.auth}
+              role="ROLE_MANAGER"
+            />
+            <PrivateRoute
+              path="/add-station"
+              component={AddStation}
+              auth={props.auth}
+              role="ROLE_MANAGER"
+            />
+            {/* <Route path="/add-route">
               <AddRoute />
-            </Route>
-            <Route path="/add-station">
+            </Route> */}
+            {/* <Route path="/add-station">
               <AddStation />
-            </Route>
+            </Route> */}
             <Route path="/search-results">
               <RoutesResult />
             </Route>
@@ -86,9 +112,11 @@ const App = props => {
               component={OrderView}
               auth={props.auth}
             /> */}
-            <Route path="/orders/:orderId">
-              <OrderView />
-            </Route>
+            <PrivateRoute
+              path="/orders/:orderId"
+              component={OrderView}
+              auth={props.auth}
+            />
             <Route exact path="/">
               <Home />
             </Route>

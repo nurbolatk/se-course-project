@@ -8,11 +8,18 @@ const Navbar = props => {
   const adminLinks = user &&
     user.roles &&
     user.roles.some(role => role === 'ROLE_MANAGER') && (
-      <div className="navbar__item">
-        <Link className="nav-navbar__link" to="/administration">
-          Admin panel
-        </Link>
-      </div>
+      <>
+        <div className="navbar__item ">
+          <Link className="navbar__link" to="/add-station">
+            Add Station
+          </Link>
+        </div>
+        <div className="navbar__item ">
+          <Link className="navbar__link" to="/add-route">
+            Add Route
+          </Link>
+        </div>
+      </>
     )
   return (
     <>
@@ -26,16 +33,6 @@ const Navbar = props => {
           {user ? (
             <>
               {adminLinks}
-              <div className="navbar__item ">
-                <Link className="navbar__link" to="/add-station">
-                  Add Station
-                </Link>
-              </div>
-              <div className="navbar__item ">
-                <Link className="navbar__link" to="/add-route">
-                  Add Route
-                </Link>
-              </div>
               <div className="navbar__item ">
                 <Link className="navbar__link" to="/orders">
                   {user.email}

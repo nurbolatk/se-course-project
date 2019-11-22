@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, withRouter } from 'react-router-dom'
+import { connect } from 'react-redux'
+import { registerAction } from '../actions/authActions'
 import Alert from './Alert'
 
 class Register extends Component {
@@ -8,20 +10,18 @@ class Register extends Component {
     lastName: '',
     email: '',
     password: '',
-    notImplementedAlert: false,
   }
   handleSubmit = e => {
     e.preventDefault()
-    if (!this.state.notImplementedAlert) {
-      this.setState({
-        notImplementedAlert: true,
-      })
-      setTimeout(() => {
-        this.setState({
-          notImplementedAlert: false,
-        })
-      }, 3000)
-    }
+    this.props.register(
+      {
+        fname: this.state.firstName,
+        lname: this.state.lastName,
+        password: this.state.password,
+        email: this.state.email,
+      },
+      this.props.history
+    )
   }
 
   handleChange = e => {
@@ -37,17 +37,8 @@ class Register extends Component {
     })
   }
   render() {
-    const notImplementedAlert = this.state.notImplementedAlert || (
-      <Alert
-        type="warning"
-        msg="This feature not implemented yet!"
-        additional="w-50"
-        close={this.closeNotImplementedAlert}
-      />
-    )
     return (
       <div className="signin">
-        {notImplementedAlert}
         <div className="card">
           <h2 className="card__title">Create an account</h2>
           <form onSubmit={this.handleSubmit} className="signup">
@@ -61,6 +52,7 @@ class Register extends Component {
                   value={this.state.firstName}
                   placeholder="First Name"
                   onChange={this.handleChange}
+                  required
                 />
               </div>
               <div className="form__group">
@@ -72,6 +64,7 @@ class Register extends Component {
                   value={this.state.lastName}
                   placeholder="Last Name"
                   onChange={this.handleChange}
+                  required
                 />
               </div>
             </div>
@@ -84,6 +77,7 @@ class Register extends Component {
                 id="inputEmail4"
                 placeholder="Email"
                 onChange={this.handleChange}
+                required
               />
             </div>
             <div className="form__group">
@@ -95,6 +89,7 @@ class Register extends Component {
                 id="inputPassword4"
                 placeholder="Password"
                 onChange={this.handleChange}
+                required
               />
             </div>
 
@@ -111,4 +106,9 @@ class Register extends Component {
   }
 }
 
-export default Register
+const mapDispathToProps = dispatch => ({
+  register: (credentials, history) =>
+    dispatch(registerAction(credentials, history)),
+})
+
+export default withRouter(connect(null, mapDispathToProps)(Register))

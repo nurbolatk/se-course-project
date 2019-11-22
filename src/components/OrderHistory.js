@@ -76,13 +76,63 @@ import Spinner from './Spinner'
 ]
 */
 class OrderHistory extends Component {
-  componentDidMount() {
-    this.props.loadOrders(this.props.auth.user.UserId, this.props.history)
-  }
+  // componentDidMount() {
+  //   this.props.loadOrders(this.props.auth.user.UserId, this.props.history)
+  // }
 
   render() {
     const { order } = this.props
     console.log(order)
+    //   const orters = [
+    //     {
+    //        "RouteId":7,
+    //        "ArrStationId":2,
+    //        "DepStationId":1,
+    //        "UserId":6,
+    //        "passengers":[
+    //           {
+    //              "SSN":8000000,
+    //              "bookInfo":{
+    //                 "CarriageId":9,
+    //                 "SeatNum":10,
+    //                 "price":7777,
+    //                 "Adult":1
+    //              },
+    //              "passengerInfo":{
+    //                 "Fname":"sweet ",
+    //                 "Lname":"but psycho",
+    //                 "PhoneNum":"7777-777-77-77",
+    //                 "Birthday":"1980-12-27"
+    //              }
+    //           }
+    //        ],
+    //        "id":"379379647"
+    //     },
+    //     {
+    //        "RouteId":7,
+    //        "ArrStationId":2,
+    //        "DepStationId":1,
+    //        "UserId":6,
+    //        "passengers":[
+    //           {
+    //              "SSN":8000000,
+    //              "bookInfo":{
+    //                 "CarriageId":10,
+    //                 "SeatNum":1,
+    //                 "price":7777,
+    //                 "Adult":1
+    //              },
+    //              "passengerInfo":{
+    //                 "Fname":"sweet",
+    //                 "Lname":"but psycho",
+    //                 "PhoneNum":"7777-777-77-77",
+    //                 "Birthday":"1980-12-27"
+    //              }
+    //           }
+    //        ],
+    //        "id":"379435425"
+    //     }
+    //  ]
     return (
       <div className="order-history">
         <div className="card">
@@ -100,6 +150,19 @@ class OrderHistory extends Component {
               })}
             </div>
           )}
+          {/* {order.isLoading ? (
+            <Spinner />
+          ) : (
+            <div className="orders-list">
+              {order.orders.map(or => {
+                return (
+                  <div className="orders-list__item">
+                    <Link to={`/orders/${or.id}`}>Order #{or.id}</Link>
+                  </div>
+                )
+              })}
+            </div>
+          )} */}
         </div>
       </div>
     )
@@ -113,8 +176,8 @@ const mapStateToProps = state => {
   }
 }
 
-const mapDispatchToProps = dispatch => ({
-  loadOrders: (UserId, history) => dispatch(loadOrdersAction(UserId, history)),
-})
+// const mapDispatchToProps = dispatch => ({
+//   loadOrders: (UserId, history) => dispatch(loadOrdersAction(UserId, history)),
+// })
 
-export default connect(mapStateToProps, mapDispatchToProps)(OrderHistory)
+export default connect(mapStateToProps)(OrderHistory)

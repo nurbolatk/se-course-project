@@ -1,7 +1,7 @@
 import React from 'react'
 import { Link, withRouter } from 'react-router-dom'
 import { connect } from 'react-redux'
-import { signInAction } from '../actions/authActions'
+import { signInAction, authErrorAlert } from '../actions/authActions'
 import Spinner from './Spinner'
 import Alert from './Alert'
 
@@ -25,7 +25,14 @@ class Signin extends React.Component {
   }
   render() {
     const { isFetching, error } = this.props
-    const alert = error && <Alert msg={error} />
+    const alert = error && (
+      <Alert
+        msg={error}
+        onClose={() => {
+          this.props.alertAuth()
+        }}
+      />
+    )
     return (
       <div className="signin">
         {alert}
@@ -55,6 +62,7 @@ class Signin extends React.Component {
                 value={this.state.password}
                 onChange={this.handleChange}
                 disabled={isFetching}
+                required
               />
             </div>
 
@@ -83,6 +91,7 @@ const mapStateToProps = state => ({
 const mapDispathToProps = dispatch => ({
   signIn: (credentials, history) =>
     dispatch(signInAction(credentials, history)),
+  alertAuth: msg => dispatch(authErrorAlert(msg)),
 })
 
 export default withRouter(connect(mapStateToProps, mapDispathToProps)(Signin))

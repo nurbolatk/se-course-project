@@ -47,8 +47,8 @@ class AddPassenger extends Component {
       RouteId: route.RouteId,
       ArrStationId: route.stations[route.stations.length - 1].StationId,
       DepStationId: route.stations[0].StationId,
-      // UserId: user.userId,
-      UserId: 1,
+      UserId: user.UserId,
+      // UserId: 1,
       passengers: this.state.passangers,
     }
     console.log(request)

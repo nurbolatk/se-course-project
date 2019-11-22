@@ -27,3 +27,4 @@ export const CLEAR_ORDER = 'CLEAR_ORDER'
 export const YOU_WILL_BE = 'THE_PURPOSE'
 
 export const ERROR_SIGN_IN = 'ERROR_SIGN_IN'
+export const REMOVE_ERROR_SIGN_IN = 'REMOVE_ERROR_SIGN_IN'

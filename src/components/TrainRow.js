@@ -4,7 +4,26 @@ import { withRouter } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { pickRouteAction } from '../actions/routeActions'
 import { formatDuration } from '../utils/dateUtils'
+//This function takes in latitude and longitude of two location and returns the distance between them as the crow flies (in km)
+const calcCrow = (lat1, lon1, lat2, lon2) => {
+  const R = 6371 // km
+  const dLat = this.toRad(lat2 - lat1)
+  const dLon = this.toRad(lon2 - lon1)
+  lat1 = this.toRad(lat1)
+  lat2 = this.toRad(lat2)
 
+  const a =
+    Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+    Math.sin(dLon / 2) * Math.sin(dLon / 2) * Math.cos(lat1) * Math.cos(lat2)
+  const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a))
+  const d = R * c
+  return d
+}
+
+// Converts numeric degrees to radians
+const toRad = Value => {
+  return (Value * Math.PI) / 180
+}
 const TrainRow = props => {
   const { route } = props
   const origin = route.stations[0]
@@ -19,24 +38,22 @@ const TrainRow = props => {
   const depDate = departure.format('D MMM YYYY')
   const arrDate = arrival.format('D MMM YYYY')
   // Wagon types
-  console.log(route)
   const wagons = route.carriages.reduce((accumulator, currentRef) => {
     const current = { ...currentRef }
-    console.log(currentRef)
     const type = current.Type
     const found = accumulator.find(elem => {
       return elem.Type === type
     })
+    // console.log(current);
+    // console.log(found);
     if (found) {
-      console.log('booked')
+      found.AvailableSeats +=
+        current.AvailableSeats - current.BookedSeats.length
+    } else {
+      current.AvailableSeats -= current.BookedSeats.length
+      accumulator.push(current)
+    }
 
-      console.log('av1')
-      console.log(found.AvailableSeats)
-      found.AvailableSeats += current.AvailableSeats
-      found.AvailableSeats -= current.BookedSeats.length
-      console.log('av2')
-      console.log(found.AvailableSeats)
-    } else accumulator.push(current)
     return accumulator
   }, [])
   return (

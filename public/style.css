@@ -225,6 +225,37 @@ a:hover, a:active {
 .order-view {
   width: 80vw;
 }
+.order-view .train-row .main-info {
+  flex: 0 0 43rem;
+  margin-right: 5rem;
+}
+.order-view > .card:not(:last-child) {
+  margin-bottom: 2rem;
+}
+.order-view .passenger-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.order-view .passenger-info .full-name {
+  display: flex;
+  justify-content: space-between;
+}
+.order-view .passenger-info .ssn {
+  display: flex;
+  justify-content: flex-end;
+}
+.order-view .ticket-info {
+  display: flex;
+  text-align: center;
+  justify-content: space-around;
+}
+.order-view .ticket-info > * {
+  border: 1px solid #232329;
+  border-radius: 0.25rem;
+  padding: 1rem 1rem;
+}
 
 .add-passenger {
   width: 70vw;
