@@ -78,17 +78,25 @@ const TrainRow = props => {
         </div>
       </div>
       <div className="carriages-list ">
-        {wagons.map((w, i) => (
-          <button
-            key={i}
-            onClick={e => props.pickRoute(route, w.Type, props.history)}
-            className="btn btn--link wagon"
-          >
-            <h6 className="type mb-1">{w.Type}</h6>
-            <div className="price">10 699 KZT</div>
-            <div className="available-seats">{w.AvailableSeats} seats</div>
-          </button>
-        ))}
+        {wagons.map((w, i) => {
+          let price = '12 690₸'
+          if (w.Type.toLowerCase() === 'lux') {
+            price = '21 440₸'
+          } else if (w.Type.toLowerCase() === 'lux') {
+            price = '6 990₸'
+          }
+          return (
+            <button
+              key={i}
+              onClick={e => props.pickRoute(route, w.Type, props.history)}
+              className="btn btn--link wagon"
+            >
+              <h6 className="type mb-1">{w.Type}</h6>
+              <div className="price">{price}</div>
+              <div className="available-seats">{w.AvailableSeats} seats</div>
+            </button>
+          )
+        })}
       </div>
     </div>
   )
