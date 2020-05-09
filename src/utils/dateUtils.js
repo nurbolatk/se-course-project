@@ -1,4 +1,5 @@
 export const formatDuration = minutes => {
   const hours = Math.floor(minutes / 60)
-  return hours + 'h ' + (minutes % hours) + 'm'
+  const mins = hours === 0 ? minutes : minutes % hours
+  return hours + 'h ' + mins + 'm'
 }

@@ -4,13 +4,17 @@ import routeReducer from './routeReducer'
 import stationReducer from './stationReducer'
 import seatReducer from './seatReducer'
 import ticketReducer from './ticketReducer'
+import errorReducer from './errorReducer'
+import orderReducer from './orderReducer'
 
 const rootReducer = combineReducers({
   auth: authReducer,
   route: routeReducer,
-  ticket: ticketReducer,
+  error: errorReducer,
   seat: seatReducer,
   station: stationReducer,
+  ticket: ticketReducer,
+  order: orderReducer,
 })
 
 export default rootReducer

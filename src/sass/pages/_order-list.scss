@@ -1,0 +1,50 @@
+.orders-list {
+  width: 40vw;
+
+  &__item {
+    padding: 1rem 3rem;
+  }
+}
+
+.order-view {
+  width: 80vw;
+  .train-row {
+    .main-info {
+      flex: 0 0 43rem;
+      margin-right: 5rem;
+    }
+  }
+  & > .card:not(:last-child) {
+    margin-bottom: 2rem;
+  }
+  .passenger-info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    .full-name {
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .ssn {
+      display: flex;
+      justify-content: flex-end;
+    }
+  }
+
+  .ticket-info {
+    display: flex;
+    text-align: center;
+    justify-content: space-around;
+
+    & > * {
+      border: 1px solid $color-background;
+      border-radius: 0.25rem;
+      // width: 6rem;
+      // height: 6rem;
+      padding: 1rem 1rem;
+    }
+  }
+}

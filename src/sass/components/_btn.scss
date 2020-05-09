@@ -1,0 +1,52 @@
+.btn {
+  border: none;
+  padding: 1.5rem 3rem;
+  cursor: pointer;
+  display: block;
+  width: 100%;
+  transition: all 0.2s;
+  border-radius: 3px;
+  text-transform: uppercase;
+  &--primary {
+    background-color: $color-primary;
+    color: #fff;
+    border: 1px solid $color-primary;
+  }
+  &:disabled {
+    cursor: not-allowed;
+  }
+
+  &--link {
+    border: none;
+    background-color: transparent;
+    color: #9c9c9c;
+    padding: 0;
+    font-size: 1.6rem;
+    display: inline-block;
+    text-transform: none;
+    border: none;
+    &:hover {
+      color: $color-primary;
+    }
+  }
+
+  &--secondary {
+    background-color: #9c9c9c;
+    color: $color-background-dark;
+    border: 1px solid #9c9c9c;
+    &--outline {
+      background-color: transparent;
+      color: #9c9c9c;
+      border: 1px solid currentColor;
+    }
+  }
+  &--side {
+    width: auto;
+  }
+
+  &--icon {
+    background-color: transparent;
+    border: none;
+    padding: 0;
+  }
+}

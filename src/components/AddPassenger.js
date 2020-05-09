@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, withRouter } from 'react-router-dom'
 import Alert from './Alert'
 import { connect } from 'react-redux'
 import AddPassangerForm from './AddPassangerForm'
@@ -10,6 +10,7 @@ class AddPassenger extends Component {
   constructor(props) {
     super(props)
     const { seats } = this.props
+    console.log('seats?', seats)
     const passangers = []
     for (const wagon in seats) {
       if (seats.hasOwnProperty(wagon)) {
@@ -17,11 +18,19 @@ class AddPassenger extends Component {
         seatNums.forEach(seat => {
           passangers.push({
             SSN: '',
-            Fname: '',
-            Lname: '',
-            PhoneNum: null,
-            Email: '',
-            Birthday: '',
+            bookInfo: {
+              CarriageId: parseInt(wagon),
+              SeatNum: seat,
+              price: 7777,
+              Adult: 1,
+            },
+            passengerInfo: {
+              Fname: '',
+              Lname: '',
+              PhoneNum: null,
+              // Email: '',
+              Birthday: '',
+            },
           })
         })
       }
@@ -30,28 +39,31 @@ class AddPassenger extends Component {
       passangers,
     }
   }
-  state = {
-    passangers: [
-      {
-        SSN: '',
-        Fname: '',
-        Lname: '',
-        PhoneNum: null,
-        Email: '',
-        Birthday: '',
-      },
-    ],
-  }
+
   handleSubmit = e => {
     e.preventDefault()
+    const { route, user } = this.props
+    const request = {
+      RouteId: route.RouteId,
+      ArrStationId: route.stations[route.stations.length - 1].StationId,
+      DepStationId: route.stations[0].StationId,
+      UserId: user.UserId,
+      // UserId: 1,
+      passengers: this.state.passangers,
+    }
+    console.log(request)
+    this.props.bookTicket(request, this.props.history)
   }
 
   handleChange = (e, ind) => {
     const { name, value } = e.target
-    console.log(name, value)
     this.setState(state => {
       const npsgs = [...state.passangers]
-      npsgs[ind][name] = value
+      if (name === 'SSN') {
+        npsgs[ind][name] = parseInt(value)
+      } else {
+        npsgs[ind].passengerInfo[name] = value
+      }
       return {
         ...state,
         passangers: npsgs,
@@ -81,12 +93,19 @@ class AddPassenger extends Component {
         })
       }
     }
+    if (Object.keys(this.props.seats).length === 0) {
+      return <Alert msg="No seats selected!" />
+    }
     return (
-      <div className='d-flex mt-5 flex-fill justify-content-center align-items-center flex-column'>
+      <div className="add-passenger">
         <form onSubmit={this.handleSubmit}>
           {form}
-          <button type='submit' class='btn btn-primary w-100 mb-5' disabled={isLoading}>
-            {isLoading ? <Spinner type='small' /> : 'Book Tickets'}
+          <button
+            type="submit"
+            className="btn btn--primary mb-4"
+            disabled={isLoading}
+          >
+            {isLoading ? <Spinner type="small" /> : 'Book Tickets'}
           </button>
         </form>
       </div>
@@ -98,14 +117,16 @@ const mapStateToProps = state => {
   return {
     seats: state.seat.seats,
     ticket: state.ticket,
+    route: state.route.route,
+    user: state.auth.user,
   }
 }
 
 const mapDispathToProps = dispatch => ({
-  signIn: (credentials, history) => dispatch(bookTicketAction(credentials, history)),
+  bookTicket: (credentials, history) =>
+    dispatch(bookTicketAction(credentials, history)),
 })
 
-export default connect(
-  mapStateToProps,
-  mapDispathToProps
-)(AddPassenger)
+export default withRouter(
+  connect(mapStateToProps, mapDispathToProps)(AddPassenger)
+)

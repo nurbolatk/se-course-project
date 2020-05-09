@@ -5,14 +5,12 @@ class RoutesResult extends React.Component {
   render() {
     const { routes } = this.props
     return (
-      <div className='container mt-5'>
-        <div class='list-group'>
-          {routes.map(r => (
-            <li class='list-group-item' key={r.RouteId}>
-              <TrainRow route={r} />
-            </li>
-          ))}
-        </div>
+      <div className="search-routes">
+        {routes.map(r => (
+          <div className="card" key={r.RouteId}>
+            <TrainRow route={r} />
+          </div>
+        ))}
       </div>
     )
   }

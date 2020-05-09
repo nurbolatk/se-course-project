@@ -1,0 +1,35 @@
+.add-route {
+  align-self: flex-start;
+  width: 80vw;
+  margin-top: 4rem;
+
+  & .form__row {
+    margin-bottom: 3rem;
+
+    & > div {
+      display: flex;
+      flex-direction: column;
+
+      &:not(:last-child) {
+        margin-right: 2rem;
+      }
+    }
+  }
+}
+
+.add-station-name {
+  flex: 6;
+}
+
+.add-station-arr {
+  flex: 3;
+}
+
+.add-station-dep {
+  flex: 3;
+}
+
+.remove-row {
+  flex: 0 0 0.5rem;
+  align-self: flex-end;
+}

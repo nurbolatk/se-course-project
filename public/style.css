@@ -1,0 +1,466 @@
+@import url("https://fonts.googleapis.com/css?family=Nunito:300,400,700&display=swap");
+@font-face {
+  font-family: "Ninja Naruto";
+  font-style: normal;
+  font-weight: normal;
+  src: local("Ninja Naruto"), url("../fonts/njnaruto.woff") format("woff");
+}
+body {
+  background-color: #333;
+  font-family: "Nunito", sans-serif;
+  color: #fff;
+  font-size: 1.6rem;
+  line-height: 1.6;
+}
+
+h3 {
+  font-weight: 400;
+  /* text-transform: uppercase; */
+  margin-bottom: 3rem;
+  font-size: 2rem;
+}
+
+h2 {
+  font-weight: 400;
+  font-size: 2.6rem;
+}
+
+.mb-1 {
+  margin-bottom: 1rem;
+}
+
+.mb-2 {
+  margin-bottom: 2rem;
+}
+
+.mb-3 {
+  margin-bottom: 3rem;
+}
+
+.mb-4 {
+  margin-bottom: 4rem;
+}
+
+* {
+  padding: 0;
+  margin: 0;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+}
+
+:root {
+  box-sizing: border-box;
+  font-size: 62.5%;
+}
+
+#root {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+a {
+  transition: all 0.2s;
+}
+a:link, a:visited {
+  color: #9c9c9c;
+  text-decoration: none;
+}
+a:hover, a:active {
+  color: #df241d;
+}
+
+.page-bg {
+  background-image: url(./img/clouds-red.png);
+  background-size: 7%;
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.search {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr) 15rem;
+  grid-gap: 1rem;
+  align-items: center;
+}
+.search > * {
+  flex: 1;
+}
+
+.signin {
+  width: 50vw;
+}
+.signin__link {
+  display: block;
+  text-align: center;
+}
+
+.add-station {
+  width: 80vw;
+}
+
+.add-route {
+  align-self: flex-start;
+  width: 80vw;
+  margin-top: 4rem;
+}
+.add-route .form__row {
+  margin-bottom: 3rem;
+}
+.add-route .form__row > div {
+  display: flex;
+  flex-direction: column;
+}
+.add-route .form__row > div:not(:last-child) {
+  margin-right: 2rem;
+}
+
+.add-station-name {
+  flex: 6;
+}
+
+.add-station-arr {
+  flex: 3;
+}
+
+.add-station-dep {
+  flex: 3;
+}
+
+.remove-row {
+  flex: 0 0 0.5rem;
+  align-self: flex-end;
+}
+
+.search-routes {
+  width: 80vw;
+  margin-top: 4rem;
+}
+.search-routes .card:not(:last-child) {
+  margin-bottom: 3rem;
+}
+
+.train-row {
+  display: flex;
+}
+.train-row .main-info {
+  flex: 0 0 47rem;
+  margin-right: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  text-align: center;
+}
+.train-row .duration-label {
+  font-size: 1.2rem;
+  margin-bottom: 0.8rem;
+}
+.train-row .station {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #df241d;
+}
+.train-row .time {
+  font-weight: 100;
+  font-size: 5rem;
+}
+.train-row .carriages-list {
+  display: flex;
+}
+.train-row .carriages-list .wagon {
+  text-align: center;
+  border: 1px solid currentColor;
+  padding: 1rem 2.25rem;
+  border-radius: 0.25rem;
+  transition: all 0.2s;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.train-row .carriages-list .wagon:not(:last-child) {
+  margin-right: 2rem;
+}
+
+.wagon-view {
+  max-width: 80vw;
+  min-width: 80vw;
+  overflow: hidden;
+}
+.wagon-view td {
+  padding: 0.4rem;
+}
+.wagon-view .btn {
+  padding: 0;
+  width: 3.2rem;
+  height: 3.2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.wagon-view .spacer {
+  height: 1.5rem;
+}
+
+.train-view {
+  margin-top: 4rem;
+}
+.train-view__header {
+  display: flex;
+  justify-content: space-between;
+}
+
+.orders-list {
+  width: 40vw;
+}
+.orders-list__item {
+  padding: 1rem 3rem;
+}
+
+.order-view {
+  width: 80vw;
+}
+.order-view .train-row .main-info {
+  flex: 0 0 43rem;
+  margin-right: 5rem;
+}
+.order-view > .card:not(:last-child) {
+  margin-bottom: 2rem;
+}
+.order-view .passenger-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.order-view .passenger-info .full-name {
+  display: flex;
+  justify-content: space-between;
+}
+.order-view .passenger-info .ssn {
+  display: flex;
+  justify-content: flex-end;
+}
+.order-view .ticket-info {
+  display: flex;
+  text-align: center;
+  justify-content: space-around;
+}
+.order-view .ticket-info > * {
+  border: 1px solid #232329;
+  border-radius: 0.25rem;
+  padding: 1rem 1rem;
+}
+
+.add-passenger {
+  width: 70vw;
+  margin-top: 4rem;
+}
+
+.alert {
+  background-color: #df241d;
+  color: #5f0000;
+  font-size: 1.6rem;
+  padding: 0.75rem 1.25rem;
+  border-radius: 0.25rem;
+  border: 1px solid #cb2a27;
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.alert .close {
+  width: auto;
+}
+
+.navbar {
+  display: flex;
+}
+.navbar__item:not(:last-child) {
+  margin-right: 2rem;
+}
+
+.header {
+  background-color: #0f0f11;
+  padding: 1.3rem 2rem;
+  display: flex;
+  align-items: center;
+}
+
+.logo-box {
+  margin-right: auto;
+}
+
+.logo:link,
+.logo:visited {
+  color: #fff;
+  text-decoration: none;
+  font-family: "Ninja Naruto", sans-serif;
+  color: #df241d;
+}
+
+.form__input {
+  padding: 1.5rem 3rem;
+  border: none;
+  /* background-color: #27272d; */
+  background-color: #1b1b1f;
+  border-radius: 3px;
+  color: #fff;
+  font-size: 1.6rem;
+  display: block;
+  width: 100%;
+}
+.form__group {
+  width: 100%;
+}
+.form__group:not(:last-child) {
+  margin-bottom: 2rem;
+}
+.form__row {
+  display: flex;
+}
+.form__row .form__group:not(:last-child) {
+  margin-right: 2rem;
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+textarea:-webkit-autofill,
+textarea:-webkit-autofill:hover,
+textarea:-webkit-autofill:focus,
+select:-webkit-autofill,
+select:-webkit-autofill:hover,
+select:-webkit-autofill:focus {
+  border: none;
+  transition: background-color 5000s ease-in-out 0s;
+  padding: 1.5rem 3rem;
+  /* background-color: #27272d; */
+  background-color: #1b1b1f;
+  border-radius: 3px;
+  -webkit-text-fill-color: #fff;
+  font-size: 1.6rem;
+  display: block;
+  width: 100%;
+}
+
+.btn {
+  border: none;
+  padding: 1.5rem 3rem;
+  cursor: pointer;
+  display: block;
+  width: 100%;
+  transition: all 0.2s;
+  border-radius: 3px;
+  text-transform: uppercase;
+}
+.btn--primary {
+  background-color: #df241d;
+  color: #fff;
+  border: 1px solid #df241d;
+}
+.btn:disabled {
+  cursor: not-allowed;
+}
+.btn--link {
+  border: none;
+  background-color: transparent;
+  color: #9c9c9c;
+  padding: 0;
+  font-size: 1.6rem;
+  display: inline-block;
+  text-transform: none;
+  border: none;
+}
+.btn--link:hover {
+  color: #df241d;
+}
+.btn--secondary {
+  background-color: #9c9c9c;
+  color: #0f0f11;
+  border: 1px solid #9c9c9c;
+}
+.btn--secondary--outline {
+  background-color: transparent;
+  color: #9c9c9c;
+  border: 1px solid currentColor;
+}
+.btn--side {
+  width: auto;
+}
+.btn--icon {
+  background-color: transparent;
+  border: none;
+  padding: 0;
+}
+
+.card {
+  background-color: #0f0f11;
+  padding: 4rem;
+  border-radius: 3px;
+  box-shadow: 0 2rem 5rem rgba(0, 0, 0, 0.15);
+  width: 100%;
+}
+
+.card__title {
+  /* text-transform: uppercase; */
+  margin-bottom: 3rem;
+}
+
+.dropdown-search {
+  padding: 1.5rem 3rem;
+  border: none;
+  /* background-color: #27272d; */
+  background-color: #1b1b1f;
+  border-radius: 3px;
+  color: #fff;
+  font-size: 1.6rem;
+  display: block;
+  width: 100%;
+}
+.dropdown-search--open {
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+}
+.dropdown-search::-webkit-search-cancel-button {
+  margin-right: -1.6rem;
+}
+
+.dropdown-search-box {
+  display: inline-block;
+  position: relative;
+}
+
+.dropdown-search-results-box {
+  position: absolute;
+  width: 100%;
+  top: 4.6rem;
+  left: 0;
+  margin-left: -1px;
+  border-left: 1px solid #0f0f11;
+  border-right: 1px solid #0f0f11;
+  border-bottom-left-radius: 3px;
+  border-bottom-right-radius: 3px;
+}
+
+.dropdown-search-result {
+  background-color: #1b1b1f;
+  padding: 1rem 3rem;
+  font-size: 1.4rem;
+  cursor: pointer;
+  transition: all 0.2s;
+  border-top: 1px solid #0f0f11;
+}
+.dropdown-search-result:hover, .dropdown-search-result--highlighted {
+  background-color: #444444;
+}
+.dropdown-search-result:last-child {
+  border-bottom: 1px solid #0f0f11;
+}
+
+/*# sourceMappingURL=style.css.map */

@@ -1,30 +1,31 @@
-import React, { Component } from "react";
-import { Link } from "react-router-dom";
-import { connect } from "react-redux";
-import Spinner from "./Spinner";
-import { getRoutesAction } from "../actions/routeActions";
+import React, { Component } from 'react'
+import { Link } from 'react-router-dom'
+import { connect } from 'react-redux'
+import Spinner from './Spinner'
+import { getRoutesAction } from '../actions/routeActions'
 
 class Routes extends Component {
-  state = {};
+  state = {}
   componentDidMount() {
-    this.props.getRoutes();
+    this.props.getRoutes()
   }
   makeText = route => {
-    let x = "";
-  };
+    let x = ''
+  }
+
   render() {
     const xBtn = (
       <button type="button" class="close">
         <span aria-hidden="true">&times;</span>
       </button>
-    );
+    )
 
     return this.props.isLoading ? (
       <div className="d-flex mt-5 justify-content-center">
         <Spinner />
       </div>
     ) : (
-      <div className="container mt-5">
+      <div className="">
         <div class="card">
           <div class="card-header d-flex justify-content-between">
             Routes
@@ -41,7 +42,7 @@ class Routes extends Component {
           </ul>
         </div>
       </div>
-    );
+    )
   }
 }
 
@@ -49,11 +50,8 @@ const mapStateToProps = state => {
   return {
     routes: state.route.routes,
     stations: state.route.stations,
-    isLoading: state.route.isLoading
-  };
-};
+    isLoading: state.route.isLoading,
+  }
+}
 
-export default connect(
-  mapStateToProps,
-  getRoutesAction
-)(Routes);
+export default connect(mapStateToProps, getRoutesAction)(Routes)

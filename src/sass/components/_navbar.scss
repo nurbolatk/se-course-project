@@ -1,0 +1,15 @@
+.navbar {
+  display: flex;
+
+  &__item {
+    &:not(:last-child) {
+      margin-right: 2rem;
+    }
+  }
+}
+
+// .navbar__link:link,
+// .navbar__link:visited {
+//   color: #fff;
+//   text-decoration: none;
+// }

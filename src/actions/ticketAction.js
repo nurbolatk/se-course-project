@@ -1,6 +1,6 @@
 import Axios from 'axios'
 import { domain } from '../url'
-import { START_LOADING_TICKETS } from '.'
+import { START_LOADING_TICKETS, STOP_LOADING, CLEAR_SEATS, SAVE_ORDER } from '.'
 
 export const bookTicketAction = (bookData, history) => {
   return dispatch => {
@@ -10,14 +10,21 @@ export const bookTicketAction = (bookData, history) => {
     const headers = {
       'Content-Type': 'application/json',
     }
-    // console.log(json)
+    console.log(json)
+    dispatch({ type: SAVE_ORDER, data: bookData })
     // redirect to routes
-    Axios.post(domain + '/routes', json, { headers })
+    Axios.post(domain + '/book', json, { headers })
       .then(r => {
-        console.log(r)
-        history.push('/routes')
+        dispatch({ type: STOP_LOADING })
+        dispatch({
+          type: CLEAR_SEATS,
+        })
+        history.push('/orders')
       })
-      .catch(e => console.log(e))
+      .catch(e => {
+        dispatch({ type: STOP_LOADING })
+        console.log(e.response)
+      })
     //   dispatch({ type: ADD_ROUTE, data: routeData });
   }
 }

@@ -1,4 +1,8 @@
-import { REQUEST_STATIONS, GET_STATIONS } from '../actions'
+import {
+  REQUEST_STATIONS,
+  GET_STATIONS,
+  STOP_REQUEST_STATIONS,
+} from '../actions'
 
 const initial = {
   stations: [
@@ -17,11 +21,21 @@ const stationReducer = (state = initial, action) => {
         ...state,
         isLoading: true,
       }
-    case GET_STATIONS:
-      console.log(action)
+    case STOP_REQUEST_STATIONS:
       return {
         ...state,
-        stations: action.data,
+        isLoading: false,
+      }
+    case GET_STATIONS:
+      if (action && action.data) {
+        return {
+          ...state,
+          stations: action.data,
+          isLoading: false,
+        }
+      }
+      return {
+        ...state,
         isLoading: false,
       }
     default:

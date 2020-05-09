@@ -4,6 +4,10 @@ import { withRouter } from 'react-router-dom'
 import { getStationsAction } from '../actions/stationActions'
 import { searchRoutesAction } from '../actions/routeActions'
 import Select from 'react-select'
+import DropDownSearch from './DropDownSearch'
+import DateInput from './DateInput'
+import moment from 'moment'
+
 export class Home extends Component {
   state = {
     from: '',
@@ -11,17 +15,17 @@ export class Home extends Component {
     date: '',
   }
   componentDidMount() {
-    console.log(this.props)
     this.props.getStations()
   }
   handleSubmit = e => {
     e.preventDefault()
     const { from, to, date } = this.state
+    const dateInCorrectFormat = moment(date).format('YYYY-MM-DD')
     this.props.searchRoutes(
       {
         arrivalStationId: from.value,
         destinationStationId: to.value,
-        date,
+        date: dateInCorrectFormat,
       },
       this.props.history
     )
@@ -32,47 +36,41 @@ export class Home extends Component {
       [name]: value,
     })
   }
-  selectStation = (station, isFrom) => {
-    if (isFrom) {
-      this.setState({ from: station })
-    } else {
-      this.setState({ to: station })
-    }
+  selectFrom = station => {
+    console.log(station)
+    this.setState({ from: station })
+  }
+  selectTo = station => {
+    console.log(station)
+    this.setState({ to: station })
+  }
+  selectDate = e => {
+    const { value } = e.target
+    this.setState({ date: value })
   }
   render() {
     return (
-      <div className='home-page'>
-        <form onSubmit={this.handleSubmit} className='container mt-5'>
-          <h1 className='text-center mb-5'>Qazaqstan Temir Zholy</h1>
-          <div className='mt-5 row'>
-            <div className='col'>
-              <Select
-                onChange={station => this.selectStation(station, true)}
-                options={this.props.stations}
+      <>
+        <div className="home">
+          <div className=" card">
+            <h3 className="card__title">Search for the tickets</h3>
+            <form onSubmit={this.handleSubmit} className="search">
+              <DropDownSearch
+                placeholder="From"
+                selectItem={this.selectFrom}
+                items={this.props.stations}
               />
-            </div>
-            <div className='col'>
-              <Select
-                onChange={station => this.selectStation(station)}
-                options={this.props.stations}
+              <DropDownSearch
+                placeholder="To"
+                selectItem={this.selectTo}
+                items={this.props.stations}
               />
-            </div>
-            <div className='col'>
-              <input
-                type='text'
-                className='form-control'
-                name='date'
-                placeholder='Date'
-                value={this.state.date}
-                onChange={this.onChange}
-              />
-            </div>
-            <button type='submit' className='btn btn-primary'>
-              Search
-            </button>
+              <DateInput date={this.state.date} selectDate={this.selectDate} />
+              <button className="btn btn--primary">Search</button>
+            </form>
           </div>
-        </form>
-      </div>
+        </div>
+      </>
     )
   }
 }
@@ -85,16 +83,12 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   const getStations = getStationsAction(dispatch).getStations
-  const searchRoutes = (params, history) => dispatch(searchRoutesAction(params, history))
+  const searchRoutes = (params, history) =>
+    dispatch(searchRoutesAction(params, history))
   return {
     getStations,
     searchRoutes,
   }
 }
 
-export default withRouter(
-  connect(
-    mapStateToProps,
-    mapDispatchToProps
-  )(Home)
-)
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Home))
